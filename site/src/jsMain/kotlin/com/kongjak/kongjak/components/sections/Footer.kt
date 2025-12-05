@@ -25,15 +25,17 @@ import com.varabyte.kobweb.silk.components.navigation.Link
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.Span
 import org.jetbrains.compose.web.dom.Text
+import kotlin.js.Date
 
 @Composable
 fun Footer(modifier: Modifier = Modifier) {
+    val currentDate = Date()
     SimpleGrid(
         modifier = Modifier.padding(16.px).then(modifier).id("footer"),
         numColumns = numColumns(1, lg = 2)
     ) {
         Span(attrs = Modifier.margin(topBottom = 4.px).fontSize(16.px).toAttrs()) {
-            Text("Copyright © 2024 Kongjak. All rights reserved.")
+            Text("Copyright © 2024 - ${currentDate.getFullYear()} Kongjak. All rights reserved.")
         }
 
         Row(
