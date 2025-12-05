@@ -11,7 +11,7 @@ import com.kongjak.kongjak.utils.DevIcons.KOTLIN
 
 const val GITHUB_URL = "https://github.com/kongwoojin/"
 const val TELEGRAM_URL = "https://t.me/Kongjak"
-const val MAIL_ADDRESS = "mailto:kongjak@kongjak.com"
+const val MAIL_ADDRESS = "mailto:kongjak@kongjak.dev"
 
 val languages = listOf(
     Skill("Kotlin", "images/skills/kotlin.svg"),
