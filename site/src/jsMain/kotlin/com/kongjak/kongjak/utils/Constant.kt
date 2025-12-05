@@ -1,8 +1,6 @@
 package com.kongjak.kongjak.utils
 
-import com.kongjak.kongjak.models.FaIcons.ANDROID
-import com.kongjak.kongjak.models.FaIcons.DOWNLOAD
-import com.kongjak.kongjak.models.FaIcons.GITHUB
+import com.kongjak.kongjak.models.FaIcons.*
 import com.kongjak.kongjak.models.Project
 import com.kongjak.kongjak.models.ProjectUrl
 import com.kongjak.kongjak.models.Skill
@@ -39,6 +37,32 @@ val platformsAndFrameworks = listOf(
 )
 
 val projectLists = listOf(
+    Project(
+        name = "KOIN",
+        description = "Community for KOREATECH Students",
+        urls = listOf(
+            ProjectUrl(
+                url = "https://play.google.com/store/apps/details?id=in.koreatech.koin",
+                urlName = "Android",
+                icon = ANDROID
+            ),
+            ProjectUrl(
+                url = "https://github.com/BCSDLab/KOIN_ANDROID",
+                urlName = "Github",
+                icon = GITHUB
+            )
+        ),
+        techStacks = listOf(
+            TechStack(
+                name = "Kotlin",
+                icon = KOTLIN
+            ),
+            TechStack(
+                name = "Jetpack Compose",
+                icon = DevIcons.JETPACK_COMPOSE
+            )
+        )
+    ),
     Project(
         "Koreatech Board (Android)",
         "Unofficial android client for Koreatech board",
