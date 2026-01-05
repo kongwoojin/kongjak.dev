@@ -196,8 +196,8 @@ fun PartsListStyle(parts: List<ProjectPart>) {
                                     modifier = Modifier.margin(right = 12.px),
                                     verticalAlignment = Alignment.CenterVertically,
                                 ) {
-                                    Box(modifier = Modifier.margin(right = 4.px).opacity(0.6F)) {
-                                        DevIcon(icon = techStack.icon, modifier = Modifier.size(14.px))
+                                    Box(modifier = Modifier.margin(right = 6.px).opacity(0.6F)) {
+                                        DevIcon(icon = techStack.icon)
                                     }
                                     Span {
                                         SpanText(
@@ -229,7 +229,7 @@ fun PartsListStyle(parts: List<ProjectPart>) {
                                     getFaIcon(url.icon)
                                     SpanText(
                                         text = url.urlName,
-                                        modifier = Modifier.margin(left = 4.px),
+                                        modifier = Modifier.margin(left = 6.px),
                                     )
                                 }
                             }
