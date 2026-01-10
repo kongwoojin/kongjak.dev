@@ -89,37 +89,34 @@ val SocialLinkStyle =
 @Composable
 fun IndexMain() {
     Column(
-        modifier =
-            Modifier
-                .minWidth(100.percent)
-                .minHeight(100.vh)
-                .id("main")
-                .padding(24.px),
+        modifier = Modifier
+            .minWidth(100.percent)
+            .minHeight(100.vh)
+            .id("main")
+            .padding(24.px),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         H1(
-            attrs =
-                Modifier
-                    .fontSize(4.cssRem)
-                    .fontWeight(FontWeight.Bold)
-                    .color(Colors.White)
-                    .letterSpacing((-0.03).em)
-                    .margin(bottom = 16.px, top = 0.px)
-                    .toAttrs(),
+            attrs = Modifier
+                .fontSize(4.cssRem)
+                .fontWeight(FontWeight.Bold)
+                .color(Colors.White)
+                .letterSpacing((-0.03).em)
+                .margin(bottom = 16.px, top = 0.px)
+                .toAttrs(),
         ) {
             Text("Kongjak")
         }
 
         P(
-            attrs =
-                Modifier
-                    .fontSize(1.2.cssRem)
-                    .fontWeight(FontWeight.Normal)
-                    .color(Color.rgba(255, 255, 255, 0.5F))
-                    .letterSpacing(0.02.em)
-                    .margin(bottom = 48.px, top = 0.px)
-                    .toAttrs(),
+            attrs = Modifier
+                .fontSize(1.2.cssRem)
+                .fontWeight(FontWeight.Normal)
+                .color(Color.rgba(255, 255, 255, 0.5F))
+                .letterSpacing(0.02.em)
+                .margin(bottom = 48.px, top = 0.px)
+                .toAttrs(),
         ) {
             Text("Android Developer")
         }

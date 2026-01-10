@@ -128,12 +128,11 @@ val PartListTitleStyle =
 @Composable
 fun IndexProjects() {
     Column(
-        modifier =
-            Modifier
-                .fillMaxWidth()
-                .minHeight(100.vh)
-                .id("projects")
-                .padding(topBottom = 100.px, leftRight = 24.px),
+        modifier = Modifier
+            .fillMaxWidth()
+            .minHeight(100.vh)
+            .id("projects")
+            .padding(topBottom = 100.px, leftRight = 24.px),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
@@ -202,10 +201,9 @@ fun PartsListStyle(parts: List<ProjectPart>) {
                                     Span {
                                         SpanText(
                                             text = techStack.name,
-                                            modifier =
-                                                Modifier
-                                                    .color(Color.rgba(255, 255, 255, 0.5F))
-                                                    .fontSize(0.8.cssRem),
+                                            modifier = Modifier
+                                                .color(Color.rgba(255, 255, 255, 0.5F))
+                                                .fontSize(0.8.cssRem),
                                         )
                                     }
                                 }
@@ -217,13 +215,12 @@ fun PartsListStyle(parts: List<ProjectPart>) {
                         for (url in part.urls) {
                             Link(
                                 path = url.url,
-                                modifier =
-                                    Modifier
-                                        .color(accentColor)
-                                        .fontSize(0.8.cssRem)
-                                        .margin(right = 16.px)
-                                        .opacity(0.7F)
-                                        .transition(Transition.of("opacity", 150.ms)),
+                                modifier = Modifier
+                                    .color(accentColor)
+                                    .fontSize(0.8.cssRem)
+                                    .margin(right = 16.px)
+                                    .opacity(0.7F)
+                                    .transition(Transition.of("opacity", 150.ms)),
                             ) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     getFaIcon(url.icon)

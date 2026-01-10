@@ -56,10 +56,9 @@ fun initSiteStyles(ctx: InitSilkContext) {
     }
 }
 
-val HeadlineTextStyle =
-    CssStyle.base {
-        Modifier
-            .fontSize(3.cssRem)
-            .textAlign(TextAlign.Start)
-            .lineHeight(1.2)
-    }
+val HeadlineTextStyle = CssStyle.base {
+    Modifier
+        .fontSize(3.cssRem)
+        .textAlign(TextAlign.Start)
+        .lineHeight(1.2)
+}

@@ -31,7 +31,7 @@ fun PageLayout(
     }
 
     Box(
-        Modifier
+        modifier = Modifier
             .fillMaxWidth()
             .minHeight(100.percent)
             .backgroundColor(darkBgColor)
@@ -42,7 +42,7 @@ fun PageLayout(
         contentAlignment = Alignment.Center,
     ) {
         Column(
-            Modifier.fillMaxSize().gridRow(1),
+            modifier = Modifier.fillMaxSize().gridRow(1),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Column(

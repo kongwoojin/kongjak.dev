@@ -60,13 +60,12 @@ fun Footer(modifier: Modifier = Modifier) {
     val currentDate = Date()
 
     Column(
-        modifier =
-            Modifier
-                .fillMaxWidth()
-                .borderTop(1.px, LineStyle.Solid, Color.rgba(255, 255, 255, 0.08F))
-                .padding(topBottom = 40.px, leftRight = 24.px)
-                .id("footer")
-                .then(modifier),
+        modifier = Modifier
+            .fillMaxWidth()
+            .borderTop(1.px, LineStyle.Solid, Color.rgba(255, 255, 255, 0.08F))
+            .padding(topBottom = 40.px, leftRight = 24.px)
+            .id("footer")
+            .then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Column(
@@ -95,11 +94,10 @@ fun Footer(modifier: Modifier = Modifier) {
             }
 
             Span(
-                attrs =
-                    Modifier
-                        .fontSize(0.85.cssRem)
-                        .color(Color.rgba(255, 255, 255, 0.3F))
-                        .toAttrs(),
+                attrs = Modifier
+                    .fontSize(0.85.cssRem)
+                    .color(Color.rgba(255, 255, 255, 0.3F))
+                    .toAttrs(),
             ) {
                 Text("© ${currentDate.getFullYear()} Kongjak")
             }

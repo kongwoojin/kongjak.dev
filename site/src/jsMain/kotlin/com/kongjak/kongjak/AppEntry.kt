@@ -18,7 +18,8 @@ import kotlinx.browser.localStorage
 import org.jetbrains.compose.web.css.vh
 
 private const val COLOR_MODE_KEY = "kongjak:colorMode"
-private const val PRETENDARD_FONT_URL = "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+private const val PRETENDARD_FONT_URL =
+    "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
 
 @InitSilk
 fun initColorMode(ctx: InitSilkContext) {
@@ -40,7 +41,7 @@ fun AppEntry(content: @Composable () -> Unit) {
         }
 
         Surface(
-            SmoothColorStyle
+            modifier = SmoothColorStyle
                 .toModifier()
                 .minHeight(100.vh)
                 .scrollBehavior(ScrollBehavior.Smooth),

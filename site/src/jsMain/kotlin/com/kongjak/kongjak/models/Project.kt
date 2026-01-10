@@ -37,9 +37,8 @@ enum class FaIcons {
 }
 
 @Composable
-fun getFaIcon(icon: FaIcons) =
-    when (icon) {
-        FaIcons.GITHUB -> FaGithub()
-        FaIcons.ANDROID -> FaAndroid()
-        FaIcons.DOWNLOAD -> FaDownload()
-    }
+fun getFaIcon(icon: FaIcons) = when (icon) {
+    FaIcons.GITHUB -> FaGithub()
+    FaIcons.ANDROID -> FaAndroid()
+    FaIcons.DOWNLOAD -> FaDownload()
+}
