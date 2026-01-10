@@ -17,13 +17,31 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.graphics.Colors
-import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
+import com.varabyte.kobweb.compose.ui.modifiers.border
+import com.varabyte.kobweb.compose.ui.modifiers.borderBottom
+import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
+import com.varabyte.kobweb.compose.ui.modifiers.color
+import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
+import com.varabyte.kobweb.compose.ui.modifiers.fontSize
+import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
+import com.varabyte.kobweb.compose.ui.modifiers.id
+import com.varabyte.kobweb.compose.ui.modifiers.letterSpacing
+import com.varabyte.kobweb.compose.ui.modifiers.lineHeight
+import com.varabyte.kobweb.compose.ui.modifiers.margin
+import com.varabyte.kobweb.compose.ui.modifiers.maxWidth
+import com.varabyte.kobweb.compose.ui.modifiers.minHeight
+import com.varabyte.kobweb.compose.ui.modifiers.opacity
+import com.varabyte.kobweb.compose.ui.modifiers.padding
+import com.varabyte.kobweb.compose.ui.modifiers.textAlign
+import com.varabyte.kobweb.compose.ui.modifiers.transition
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.selectors.hover
 import com.varabyte.kobweb.silk.style.toAttrs
 import com.varabyte.kobweb.silk.style.toModifier
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.LineStyle
 import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.em
@@ -36,22 +54,55 @@ import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Span
 import org.jetbrains.compose.web.dom.Text
 
-private val accentColor = Color.rgb(100, 200, 220)
+private val accentColorLight = Color.rgb(0, 140, 160)
+private val accentColorDark = Color.rgb(100, 200, 220)
 
-val ProjectsSectionHeaderStyle =
+val ProjectsSectionHeaderStyleLight =
     CssStyle {
         base {
             Modifier
                 .fontSize(0.9.cssRem)
                 .fontWeight(FontWeight.Bold)
-                .color(accentColor)
+                .color(accentColorLight)
                 .letterSpacing(0.15.em)
                 .margin(bottom = 64.px)
                 .textAlign(TextAlign.Center)
         }
     }
 
-val ProjectCardStyle =
+val ProjectsSectionHeaderStyleDark =
+    CssStyle {
+        base {
+            Modifier
+                .fontSize(0.9.cssRem)
+                .fontWeight(FontWeight.Bold)
+                .color(accentColorDark)
+                .letterSpacing(0.15.em)
+                .margin(bottom = 64.px)
+                .textAlign(TextAlign.Center)
+        }
+    }
+
+val ProjectCardStyleLight =
+    CssStyle {
+        base {
+            Modifier
+                .fillMaxWidth()
+                .padding(32.px)
+                .borderRadius(16.px)
+                .backgroundColor(Color.rgba(0, 0, 0, 0.03F))
+                .border(1.px, LineStyle.Solid, Color.rgba(0, 0, 0, 0.08F))
+                .margin(bottom = 24.px)
+                .transition(Transition.of("all", 300.ms))
+        }
+        hover {
+            Modifier
+                .backgroundColor(Color.rgba(0, 0, 0, 0.05F))
+                .border(1.px, LineStyle.Solid, Color.rgba(0, 140, 160, 0.3F))
+        }
+    }
+
+val ProjectCardStyleDark =
     CssStyle {
         base {
             Modifier
@@ -70,7 +121,19 @@ val ProjectCardStyle =
         }
     }
 
-val ProjectTitleStyle =
+val ProjectTitleStyleLight =
+    CssStyle {
+        base {
+            Modifier
+                .color(Color.rgb(20, 20, 20))
+                .fontWeight(FontWeight.Bold)
+                .margin(bottom = 4.px, top = 0.px)
+                .fontSize(1.5.cssRem)
+                .letterSpacing((-0.02).em)
+        }
+    }
+
+val ProjectTitleStyleDark =
     CssStyle {
         base {
             Modifier
@@ -82,18 +145,40 @@ val ProjectTitleStyle =
         }
     }
 
-val ProjectPositionStyle =
+val ProjectPositionStyleLight =
     CssStyle {
         base {
             Modifier
-                .color(accentColor)
+                .color(accentColorLight)
                 .fontSize(0.85.cssRem)
                 .fontWeight(FontWeight.Medium)
                 .margin(bottom = 12.px, top = 0.px)
         }
     }
 
-val ProjectDescriptionStyle =
+val ProjectPositionStyleDark =
+    CssStyle {
+        base {
+            Modifier
+                .color(accentColorDark)
+                .fontSize(0.85.cssRem)
+                .fontWeight(FontWeight.Medium)
+                .margin(bottom = 12.px, top = 0.px)
+        }
+    }
+
+val ProjectDescriptionStyleLight =
+    CssStyle {
+        base {
+            Modifier
+                .color(Color.rgba(0, 0, 0, 0.6F))
+                .fontSize(0.95.cssRem)
+                .lineHeight(1.7)
+                .margin(bottom = 24.px, top = 0.px)
+        }
+    }
+
+val ProjectDescriptionStyleDark =
     CssStyle {
         base {
             Modifier
@@ -104,7 +189,17 @@ val ProjectDescriptionStyle =
         }
     }
 
-val PartListItemStyle =
+val PartListItemStyleLight =
+    CssStyle {
+        base {
+            Modifier
+                .fillMaxWidth()
+                .padding(16.px, 0.px)
+                .borderBottom(1.px, LineStyle.Solid, Color.rgba(0, 0, 0, 0.08F))
+        }
+    }
+
+val PartListItemStyleDark =
     CssStyle {
         base {
             Modifier
@@ -114,7 +209,18 @@ val PartListItemStyle =
         }
     }
 
-val PartListTitleStyle =
+val PartListTitleStyleLight =
+    CssStyle {
+        base {
+            Modifier
+                .color(Color.rgb(20, 20, 20))
+                .fontSize(0.9.cssRem)
+                .fontWeight(FontWeight.Medium)
+                .margin(bottom = 6.px)
+        }
+    }
+
+val PartListTitleStyleDark =
     CssStyle {
         base {
             Modifier
@@ -127,12 +233,15 @@ val PartListTitleStyle =
 
 @Composable
 fun IndexProjects() {
+    val colorMode = ColorMode.current
+    val sectionHeaderStyle = if (colorMode.isLight) ProjectsSectionHeaderStyleLight else ProjectsSectionHeaderStyleDark
+
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .minHeight(100.vh)
-            .id("projects")
-            .padding(topBottom = 100.px, leftRight = 24.px),
+                .fillMaxWidth()
+                .minHeight(100.vh)
+                .id("projects")
+                .padding(topBottom = 100.px, leftRight = 24.px),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
@@ -140,7 +249,7 @@ fun IndexProjects() {
             modifier = Modifier.fillMaxWidth().maxWidth(800.px),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            H2(attrs = ProjectsSectionHeaderStyle.toAttrs()) {
+            H2(attrs = sectionHeaderStyle.toAttrs()) {
                 Text("PROJECTS")
             }
 
@@ -153,18 +262,24 @@ fun IndexProjects() {
 
 @Composable
 fun ProjectWidget(project: Project) {
+    val colorMode = ColorMode.current
+    val projectCardStyle = if (colorMode.isLight) ProjectCardStyleLight else ProjectCardStyleDark
+    val projectTitleStyle = if (colorMode.isLight) ProjectTitleStyleLight else ProjectTitleStyleDark
+    val projectPositionStyle = if (colorMode.isLight) ProjectPositionStyleLight else ProjectPositionStyleDark
+    val projectDescriptionStyle = if (colorMode.isLight) ProjectDescriptionStyleLight else ProjectDescriptionStyleDark
+
     Column(
-        modifier = ProjectCardStyle.toModifier(),
+        modifier = projectCardStyle.toModifier(),
     ) {
-        H3(attrs = ProjectTitleStyle.toAttrs()) {
+        H3(attrs = projectTitleStyle.toAttrs()) {
             Text(project.name)
         }
         project.position?.let { position ->
-            P(attrs = ProjectPositionStyle.toAttrs()) {
+            P(attrs = projectPositionStyle.toAttrs()) {
                 Text(position)
             }
         }
-        P(attrs = ProjectDescriptionStyle.toAttrs()) {
+        P(attrs = projectDescriptionStyle.toAttrs()) {
             Text(project.description)
         }
 
@@ -174,10 +289,16 @@ fun ProjectWidget(project: Project) {
 
 @Composable
 fun PartsListStyle(parts: List<ProjectPart>) {
+    val colorMode = ColorMode.current
+    val partListItemStyle = if (colorMode.isLight) PartListItemStyleLight else PartListItemStyleDark
+    val partListTitleStyle = if (colorMode.isLight) PartListTitleStyleLight else PartListTitleStyleDark
+    val techStackTextColor = if (colorMode.isLight) Color.rgba(0, 0, 0, 0.55F) else Color.rgba(255, 255, 255, 0.5F)
+    val linkAccentColor = if (colorMode.isLight) accentColorLight else accentColorDark
+
     Column(modifier = Modifier.fillMaxWidth()) {
         for (part in parts) {
-            Column(modifier = PartListItemStyle.toModifier()) {
-                Span(attrs = PartListTitleStyle.toAttrs()) {
+            Column(modifier = partListItemStyle.toModifier()) {
+                Span(attrs = partListTitleStyle.toAttrs()) {
                     Text(part.name)
                 }
 
@@ -201,9 +322,10 @@ fun PartsListStyle(parts: List<ProjectPart>) {
                                     Span {
                                         SpanText(
                                             text = techStack.name,
-                                            modifier = Modifier
-                                                .color(Color.rgba(255, 255, 255, 0.5F))
-                                                .fontSize(0.8.cssRem),
+                                            modifier =
+                                                Modifier
+                                                    .color(techStackTextColor)
+                                                    .fontSize(0.8.cssRem),
                                         )
                                     }
                                 }
@@ -215,12 +337,13 @@ fun PartsListStyle(parts: List<ProjectPart>) {
                         for (url in part.urls) {
                             Link(
                                 path = url.url,
-                                modifier = Modifier
-                                    .color(accentColor)
-                                    .fontSize(0.8.cssRem)
-                                    .margin(right = 16.px)
-                                    .opacity(0.7F)
-                                    .transition(Transition.of("opacity", 150.ms)),
+                                modifier =
+                                    Modifier
+                                        .color(linkAccentColor)
+                                        .fontSize(0.8.cssRem)
+                                        .margin(right = 16.px)
+                                        .opacity(0.7F)
+                                        .transition(Transition.of("opacity", 150.ms)),
                             ) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     getFaIcon(url.icon)

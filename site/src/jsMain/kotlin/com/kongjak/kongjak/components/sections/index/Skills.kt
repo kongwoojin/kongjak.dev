@@ -38,6 +38,7 @@ import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.selectors.hover
 import com.varabyte.kobweb.silk.style.toAttrs
 import com.varabyte.kobweb.silk.style.toModifier
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.em
 import org.jetbrains.compose.web.css.ms
@@ -48,22 +49,49 @@ import org.jetbrains.compose.web.dom.H2
 import org.jetbrains.compose.web.dom.H3
 import org.jetbrains.compose.web.dom.Text
 
-private val accentColor = Color.rgb(100, 200, 220)
+private val accentColorLight = Color.rgb(0, 140, 160)
+private val accentColorDark = Color.rgb(100, 200, 220)
 
-val SkillsSectionHeaderStyle =
+val SkillsSectionHeaderStyleLight =
     CssStyle {
         base {
             Modifier
                 .fontSize(0.9.cssRem)
                 .fontWeight(FontWeight.Bold)
-                .color(accentColor)
+                .color(accentColorLight)
                 .letterSpacing(0.15.em)
                 .margin(bottom = 64.px)
                 .textAlign(TextAlign.Center)
         }
     }
 
-val SkillCategoryTitleStyle =
+val SkillsSectionHeaderStyleDark =
+    CssStyle {
+        base {
+            Modifier
+                .fontSize(0.9.cssRem)
+                .fontWeight(FontWeight.Bold)
+                .color(accentColorDark)
+                .letterSpacing(0.15.em)
+                .margin(bottom = 64.px)
+                .textAlign(TextAlign.Center)
+        }
+    }
+
+val SkillCategoryTitleStyleLight =
+    CssStyle {
+        base {
+            Modifier
+                .fontSize(1.1.cssRem)
+                .fontWeight(FontWeight.SemiBold)
+                .color(Color.rgba(0, 0, 0, 0.5F))
+                .letterSpacing(0.1.em)
+                .margin(bottom = 24.px)
+                .textAlign(TextAlign.Center)
+        }
+    }
+
+val SkillCategoryTitleStyleDark =
     CssStyle {
         base {
             Modifier
@@ -93,6 +121,10 @@ val SkillIconStyle =
 
 @Composable
 fun IndexSkills() {
+    val colorMode = ColorMode.current
+    val skillsSectionHeaderStyle =
+        if (colorMode.isLight) SkillsSectionHeaderStyleLight else SkillsSectionHeaderStyleDark
+
     Column(
         modifier = Modifier
             .minWidth(100.percent)
@@ -102,7 +134,7 @@ fun IndexSkills() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        H2(attrs = SkillsSectionHeaderStyle.toAttrs()) {
+        H2(attrs = skillsSectionHeaderStyle.toAttrs()) {
             Text("SKILLS")
         }
 
@@ -127,11 +159,14 @@ fun SkillCategoryWidget(
     title: String,
     skills: List<Skill>,
 ) {
+    val colorMode = ColorMode.current
+    val skillCategoryTitleStyle = if (colorMode.isLight) SkillCategoryTitleStyleLight else SkillCategoryTitleStyleDark
+
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.px),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        H3(attrs = SkillCategoryTitleStyle.toAttrs()) {
+        H3(attrs = skillCategoryTitleStyle.toAttrs()) {
             Text(title)
         }
 
@@ -145,7 +180,7 @@ fun SkillCategoryWidget(
                 for (skill in skills) {
                     Box(modifier = SkillIconStyle.toModifier()) {
                         Image(
-                            src = skill.iconPath,
+                            src = skill.getIconPath(colorMode.isLight),
                             alt = skill.name,
                             width = 40,
                             height = 40,

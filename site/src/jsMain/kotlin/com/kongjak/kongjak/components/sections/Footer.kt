@@ -32,6 +32,7 @@ import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.selectors.hover
 import com.varabyte.kobweb.silk.style.toModifier
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.LineStyle
 import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.ms
@@ -40,9 +41,23 @@ import org.jetbrains.compose.web.dom.Span
 import org.jetbrains.compose.web.dom.Text
 import kotlin.js.Date
 
-private val accentColor = Color.rgb(100, 200, 220)
+private val accentColorLight = Color.rgb(0, 140, 160)
+private val accentColorDark = Color.rgb(100, 200, 220)
 
-val FooterLinkStyle =
+val FooterLinkStyleLight =
+    CssStyle {
+        base {
+            Modifier
+                .color(Color.rgba(0, 0, 0, 0.4F))
+                .padding(12.px)
+                .transition(Transition.of("color", 200.ms))
+        }
+        hover {
+            Modifier.color(accentColorLight)
+        }
+    }
+
+val FooterLinkStyleDark =
     CssStyle {
         base {
             Modifier
@@ -51,18 +66,22 @@ val FooterLinkStyle =
                 .transition(Transition.of("color", 200.ms))
         }
         hover {
-            Modifier.color(accentColor)
+            Modifier.color(accentColorDark)
         }
     }
 
 @Composable
 fun Footer(modifier: Modifier = Modifier) {
+    val colorMode = ColorMode.current
+    val borderColor = if (colorMode.isLight) Color.rgba(0, 0, 0, 0.1F) else Color.rgba(255, 255, 255, 0.08F)
+    val copyrightColor = if (colorMode.isLight) Color.rgba(0, 0, 0, 0.4F) else Color.rgba(255, 255, 255, 0.3F)
+    val footerLinkStyle = if (colorMode.isLight) FooterLinkStyleLight else FooterLinkStyleDark
     val currentDate = Date()
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .borderTop(1.px, LineStyle.Solid, Color.rgba(255, 255, 255, 0.08F))
+            .borderTop(1.px, LineStyle.Solid, borderColor)
             .padding(topBottom = 40.px, leftRight = 24.px)
             .id("footer")
             .then(modifier),
@@ -76,28 +95,29 @@ fun Footer(modifier: Modifier = Modifier) {
                 modifier = Modifier.margin(bottom = 24.px),
                 horizontalArrangement = Arrangement.Center,
             ) {
-                Link(TELEGRAM_URL, FooterLinkStyle.toModifier()) {
+                Link(TELEGRAM_URL, footerLinkStyle.toModifier()) {
                     FaPaperPlane(size = LG, style = FILLED)
                 }
 
-                Link(GITHUB_URL, FooterLinkStyle.toModifier()) {
+                Link(GITHUB_URL, footerLinkStyle.toModifier()) {
                     FaGithub(size = LG)
                 }
 
-                Link(BLOG_URL, FooterLinkStyle.toModifier()) {
+                Link(BLOG_URL, footerLinkStyle.toModifier()) {
                     FaBlog(size = LG)
                 }
 
-                Link(MAIL_ADDRESS, FooterLinkStyle.toModifier()) {
+                Link(MAIL_ADDRESS, footerLinkStyle.toModifier()) {
                     FaEnvelope(size = LG, style = FILLED)
                 }
             }
 
             Span(
-                attrs = Modifier
-                    .fontSize(0.85.cssRem)
-                    .color(Color.rgba(255, 255, 255, 0.3F))
-                    .toAttrs(),
+                attrs =
+                    Modifier
+                        .fontSize(0.85.cssRem)
+                        .color(copyrightColor)
+                        .toAttrs(),
             ) {
                 Text("© ${currentDate.getFullYear()} Kongjak")
             }
