@@ -24,8 +24,8 @@ val languages =
 
 val tools =
     listOf(
-        Skill("IntelliJ IDEA", "intellijidea"),
         Skill("Android Studio", "androidstudio"),
+        Skill("IntelliJ IDEA", "intellijidea"),
         Skill("PyCharm", "pycharm"),
         Skill("Git", "git"),
     )
@@ -34,7 +34,6 @@ val platformsAndFrameworks =
     listOf(
         Skill("Android", "android"),
         Skill("Jetpack Compose", "jetpackcompose"),
-        Skill("Arduino", "arduino"),
         Skill("FastAPI", "fastapi"),
         Skill("Linux", "linux"),
         Skill("Nginx", "nginx"),
