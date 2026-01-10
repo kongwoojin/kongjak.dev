@@ -40,7 +40,8 @@ val platformsAndFrameworks = listOf(
 val projectLists = listOf(
     Project(
         name = "KOIN",
-        description = "한국기술교육대학교 재학생 60% 이상이 이용하는 캠퍼스 생활 필수 앱입니다. 학식, 버스, 주변 식당, 시간표 등 다양한 서비스를 Android, iOS, Web에서 제공하며, 매일 1,100명 이상의 학생들이 사용하고 있습니다.",
+        description = "DAU 1100+ 의 한국기술교육대학교 커뮤니티 서비스입니다. " +
+                "Android, iOS, Frontend, Backend, Design, Product Manager 및 Data Analyst 직군이 참여하고 있으며, 학식, 버스, 주변 식당, 시간표 등 기능을 Android, iOS, Web에서 제공합니다.",
         position = "Android Developer @ BCSD",
         parts = listOf(
             ProjectPart(
@@ -112,13 +113,12 @@ val projectLists = listOf(
     ),
     Project(
         name = "Koreatech Board",
-        description = "학교 게시판을 모바일에서 편하게 확인할 수 있는 앱입니다. Android 앱, Go API, Python 크롤러로 구성되어 게시판 내용을 실시간으로 동기화합니다.",
+        description = "학교 게시판을 모바일에서 편하게 확인할 수 있는 앱입니다. Android 애플리케이션, Go API, Python 크롤러로 구성되어 게시판 내용을 실시간으로 동기화합니다.",
         position = "Developer",
         parts = listOf(
             ProjectPart(
                 name = "Android",
                 urls = listOf(
-                    ProjectUrl("#", "App", ANDROID),
                     ProjectUrl("https://github.com/kongwoojin/koreatech-board-android", "Github", GITHUB),
                 ),
                 techStacks = listOf(
@@ -165,7 +165,7 @@ val projectLists = listOf(
     ),
     Project(
         name = "LineageOS for EF65S",
-        description = "팬택 베가 팝업노트를 위한 커스텀 ROM입니다. 공식 지원이 끝난 기기에 Android 9, 10을 설치할 수 있게 해주며, 최신 보안 패치도 함께 제공합니다.",
+        description = "팬택 베가 팝업노트를 위한 Custom Rom입니다. 공식 지원이 끝난 기기에 Android 9부터 11을 포팅하였습니다.",
         position = "Maintainer @ SKY VEGA DEV TEAM",
         parts = listOf(
             ProjectPart(
@@ -179,7 +179,7 @@ val projectLists = listOf(
     ),
     Project(
         name = "Pantech Archive",
-        description = "팬택 기기의 펌웨어와 오픈소스 자료를 보존하는 아카이브입니다. 더 이상 공식 지원을 받지 못하는 기기들을 위한 자료를 제공합니다.",
+        description = "팬택 기기의 펌웨어와 오픈소스 자료를 보존하는 아카이브입니다.",
         position = "Developer",
         parts = listOf(
             ProjectPart(
@@ -192,7 +192,7 @@ val projectLists = listOf(
     ),
     Project(
         name = "More Projects",
-        description = "GitHub에서 더 많은 오픈소스 프로젝트를 확인해보세요.",
+        description = "GitHub에서 더 많은 프로젝트를 확인해보세요.",
         parts = listOf(
             ProjectPart(
                 name = "Github",
