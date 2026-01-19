@@ -2,6 +2,7 @@ package com.kongjak.kongjak.components.sections.index
 
 import androidx.compose.runtime.Composable
 import com.kongjak.kongjak.components.widgets.TextTooltip
+import com.kongjak.kongjak.toSitePalette
 import com.kongjak.kongjak.utils.BLOG_URL
 import com.kongjak.kongjak.utils.GITHUB_URL
 import com.kongjak.kongjak.utils.MAIL_ADDRESS
@@ -29,8 +30,8 @@ import com.varabyte.kobweb.silk.components.icons.fa.FaBlog
 import com.varabyte.kobweb.silk.components.icons.fa.FaEnvelope
 import com.varabyte.kobweb.silk.components.icons.fa.FaGithub
 import com.varabyte.kobweb.silk.components.icons.fa.FaPaperPlane
-import com.varabyte.kobweb.silk.components.icons.fa.IconSize.XL
-import com.varabyte.kobweb.silk.components.icons.fa.IconStyle.FILLED
+import com.varabyte.kobweb.silk.components.icons.fa.IconSize
+import com.varabyte.kobweb.silk.components.icons.fa.IconStyle
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.selectors.hover
@@ -46,34 +47,16 @@ import org.jetbrains.compose.web.dom.H1
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
 
-private val accentColorLight = Color.rgb(0, 140, 160)
-private val accentColorDark = Color.rgb(100, 200, 220)
-
-val SocialLinkStyleLight =
-    CssStyle {
+val SocialLinkStyle = CssStyle {
         base {
             Modifier
-                .color(Color.rgba(0, 0, 0, 0.5F))
+                .color(colorMode.toSitePalette().link)
                 .padding(16.px)
                 .margin(leftRight = 8.px)
                 .transition(Transition.of("all", 200.ms))
         }
         hover {
-            Modifier.color(accentColorLight)
-        }
-    }
-
-val SocialLinkStyleDark =
-    CssStyle {
-        base {
-            Modifier
-                .color(Color.rgba(255, 255, 255, 0.5F))
-                .padding(16.px)
-                .margin(leftRight = 8.px)
-                .transition(Transition.of("all", 200.ms))
-        }
-        hover {
-            Modifier.color(accentColorDark)
+            Modifier.color(colorMode.toSitePalette().accent)
         }
     }
 
@@ -82,7 +65,6 @@ fun IndexMain() {
     val colorMode = ColorMode.current
     val titleColor = if (colorMode.isLight) Color.rgb(20, 20, 20) else Color.rgb(255, 255, 255)
     val subtitleColor = if (colorMode.isLight) Color.rgba(0, 0, 0, 0.5F) else Color.rgba(255, 255, 255, 0.5F)
-    val socialLinkStyle = if (colorMode.isLight) SocialLinkStyleLight else SocialLinkStyleDark
 
     Column(
         modifier = Modifier
@@ -94,27 +76,25 @@ fun IndexMain() {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         H1(
-            attrs =
-                Modifier
-                    .fontSize(4.cssRem)
-                    .fontWeight(FontWeight.Bold)
-                    .color(titleColor)
-                    .letterSpacing((-0.03).em)
-                    .margin(bottom = 16.px, top = 0.px)
-                    .toAttrs(),
+            attrs = Modifier
+                .fontSize(4.cssRem)
+                .fontWeight(FontWeight.Bold)
+                .color(titleColor)
+                .letterSpacing((-0.03).em)
+                .margin(bottom = 16.px, top = 0.px)
+                .toAttrs()
         ) {
             Text("Kongjak")
         }
 
         P(
-            attrs =
-                Modifier
-                    .fontSize(1.2.cssRem)
-                    .fontWeight(FontWeight.Normal)
-                    .color(subtitleColor)
-                    .letterSpacing(0.02.em)
-                    .margin(bottom = 48.px, top = 0.px)
-                    .toAttrs(),
+            attrs = Modifier
+                .fontSize(1.2.cssRem)
+                .fontWeight(FontWeight.Normal)
+                .color(subtitleColor)
+                .letterSpacing(0.02.em)
+                .margin(bottom = 48.px, top = 0.px)
+                .toAttrs(),
         ) {
             Text("Android Developer")
         }
@@ -123,23 +103,35 @@ fun IndexMain() {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Link(TELEGRAM_URL, socialLinkStyle.toModifier()) {
-                FaPaperPlane(size = XL, style = FILLED)
+            Link(
+                path = TELEGRAM_URL,
+                modifier = SocialLinkStyle.toModifier()
+            ) {
+                FaPaperPlane(size = IconSize.XL, style = IconStyle.FILLED)
             }
             TextTooltip("Telegram")
 
-            Link(GITHUB_URL, socialLinkStyle.toModifier()) {
-                FaGithub(size = XL)
+            Link(
+                path = GITHUB_URL,
+                modifier = SocialLinkStyle.toModifier()
+            ) {
+                FaGithub(size = IconSize.XL)
             }
             TextTooltip("GitHub")
 
-            Link(BLOG_URL, socialLinkStyle.toModifier()) {
-                FaBlog(size = XL)
+            Link(
+                path = BLOG_URL,
+                modifier = SocialLinkStyle.toModifier()
+            ) {
+                FaBlog(size = IconSize.XL)
             }
             TextTooltip("Blog")
 
-            Link(MAIL_ADDRESS, socialLinkStyle.toModifier()) {
-                FaEnvelope(size = XL, style = FILLED)
+            Link(
+                path = MAIL_ADDRESS,
+                modifier = SocialLinkStyle.toModifier()
+            ) {
+                FaEnvelope(size = IconSize.XL, style = IconStyle.FILLED)
             }
             TextTooltip("Email")
         }

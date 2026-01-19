@@ -1,14 +1,12 @@
 package com.kongjak.kongjak.utils
 
-import com.kongjak.kongjak.models.FaIcons.ANDROID
-import com.kongjak.kongjak.models.FaIcons.DOWNLOAD
-import com.kongjak.kongjak.models.FaIcons.GITHUB
+import com.kongjak.kongjak.utils.DevIcons.KOTLIN
+import com.kongjak.kongjak.models.FaIcons
 import com.kongjak.kongjak.models.Project
 import com.kongjak.kongjak.models.ProjectPart
 import com.kongjak.kongjak.models.ProjectUrl
 import com.kongjak.kongjak.models.Skill
 import com.kongjak.kongjak.models.TechStack
-import com.kongjak.kongjak.utils.DevIcons.KOTLIN
 
 const val GITHUB_URL = "https://github.com/kongwoojin/"
 const val TELEGRAM_URL = "https://t.me/Kongjak"
@@ -56,18 +54,24 @@ val projectLists =
                                 ProjectUrl(
                                     url = "https://play.google.com/store/apps/details?id=in.koreatech.koin",
                                     urlName = "Play Store",
-                                    icon = ANDROID,
+                                    icon = FaIcons.ANDROID,
                                 ),
                                 ProjectUrl(
                                     url = "https://github.com/BCSDLab/KOIN_ANDROID",
                                     urlName = "Github",
-                                    icon = GITHUB,
+                                    icon = FaIcons.GITHUB,
                                 ),
                             ),
                         techStacks =
                             listOf(
-                                TechStack("Kotlin", KOTLIN),
-                                TechStack("Jetpack Compose", DevIcons.JETPACK_COMPOSE),
+                                TechStack(
+                                    "Kotlin",
+                                    KOTLIN
+                                ),
+                                TechStack(
+                                    "Jetpack Compose",
+                                    DevIcons.JETPACK_COMPOSE
+                                ),
                             ),
                     ),
                     ProjectPart(
@@ -77,12 +81,15 @@ val projectLists =
                                 ProjectUrl(
                                     url = "https://github.com/BCSDLab/KOIN_iOS",
                                     urlName = "Github",
-                                    icon = GITHUB,
+                                    icon = FaIcons.GITHUB,
                                 ),
                             ),
                         techStacks =
                             listOf(
-                                TechStack("Swift", DevIcons.SWIFT),
+                                TechStack(
+                                    "Swift",
+                                    DevIcons.SWIFT
+                                ),
                             ),
                     ),
                     ProjectPart(
@@ -92,13 +99,19 @@ val projectLists =
                                 ProjectUrl(
                                     url = "https://github.com/BCSDLab/KOIN_API_V2",
                                     urlName = "Github",
-                                    icon = GITHUB,
+                                    icon = FaIcons.GITHUB,
                                 ),
                             ),
                         techStacks =
                             listOf(
-                                TechStack("Java", DevIcons.JAVA),
-                                TechStack("Spring", DevIcons.SPRING),
+                                TechStack(
+                                    "Java",
+                                    DevIcons.JAVA
+                                ),
+                                TechStack(
+                                    "Spring",
+                                    DevIcons.SPRING
+                                ),
                             ),
                     ),
                     ProjectPart(
@@ -108,18 +121,24 @@ val projectLists =
                                 ProjectUrl(
                                     url = "https://koreatech.in",
                                     urlName = "Website",
-                                    icon = DOWNLOAD,
+                                    icon = FaIcons.DOWNLOAD,
                                 ),
                                 ProjectUrl(
                                     url = "https://github.com/BCSDLab/KOIN_WEB_RECODE",
                                     urlName = "Github",
-                                    icon = GITHUB,
+                                    icon = FaIcons.GITHUB,
                                 ),
                             ),
                         techStacks =
                             listOf(
-                                TechStack("React", DevIcons.REACT),
-                                TechStack("TypeScript", DevIcons.TYPESCRIPT),
+                                TechStack(
+                                    "React",
+                                    DevIcons.REACT
+                                ),
+                                TechStack(
+                                    "TypeScript",
+                                    DevIcons.TYPESCRIPT
+                                ),
                             ),
                     ),
                 ),
@@ -134,34 +153,55 @@ val projectLists =
                         name = "Android",
                         urls =
                             listOf(
-                                ProjectUrl("https://github.com/kongwoojin/koreatech-board-android", "Github", GITHUB),
+                                ProjectUrl(
+                                    "https://github.com/kongwoojin/koreatech-board-android", "Github",
+                                    FaIcons.GITHUB
+                                ),
                             ),
                         techStacks =
                             listOf(
-                                TechStack("Kotlin", KOTLIN),
-                                TechStack("Jetpack Compose", DevIcons.JETPACK_COMPOSE),
+                                TechStack(
+                                    "Kotlin",
+                                    KOTLIN
+                                ),
+                                TechStack(
+                                    "Jetpack Compose",
+                                    DevIcons.JETPACK_COMPOSE
+                                ),
                             ),
                     ),
                     ProjectPart(
                         name = "API",
                         urls =
                             listOf(
-                                ProjectUrl("https://github.com/kongwoojin/koreatech-board-api", "Github", GITHUB),
+                                ProjectUrl(
+                                    "https://github.com/kongwoojin/koreatech-board-api", "Github",
+                                    FaIcons.GITHUB
+                                ),
                             ),
                         techStacks =
                             listOf(
-                                TechStack("Go", DevIcons.GO),
+                                TechStack(
+                                    "Go",
+                                    DevIcons.GO
+                                ),
                             ),
                     ),
                     ProjectPart(
                         name = "Crawler",
                         urls =
                             listOf(
-                                ProjectUrl("https://github.com/kongwoojin/koreatech-board-crawler", "Github", GITHUB),
+                                ProjectUrl(
+                                    "https://github.com/kongwoojin/koreatech-board-crawler", "Github",
+                                    FaIcons.GITHUB
+                                ),
                             ),
                         techStacks =
                             listOf(
-                                TechStack("Python", DevIcons.PYTHON),
+                                TechStack(
+                                    "Python",
+                                    DevIcons.PYTHON
+                                ),
                             ),
                     ),
                 ),
@@ -176,11 +216,18 @@ val projectLists =
                         name = "CLI",
                         urls =
                             listOf(
-                                ProjectUrl("https://github.com/kongwoojin/gobuild", "Github", GITHUB),
+                                ProjectUrl(
+                                    "https://github.com/kongwoojin/gobuild",
+                                    "Github",
+                                    FaIcons.GITHUB
+                                ),
                             ),
                         techStacks =
                             listOf(
-                                TechStack("Go", DevIcons.GO),
+                                TechStack(
+                                    "Go",
+                                    DevIcons.GO
+                                ),
                             ),
                     ),
                 ),
@@ -195,8 +242,16 @@ val projectLists =
                         name = "ROM",
                         urls =
                             listOf(
-                                ProjectUrl("https://dl.kongjak.dev/ef65/LineageOS/", "Download", DOWNLOAD),
-                                ProjectUrl("https://github.com/sky-vega-dev-team", "Github", GITHUB),
+                                ProjectUrl(
+                                    "https://dl.kongjak.dev/ef65/LineageOS/",
+                                    "Download",
+                                    FaIcons.DOWNLOAD
+                                ),
+                                ProjectUrl(
+                                    "https://github.com/sky-vega-dev-team",
+                                    "Github",
+                                    FaIcons.GITHUB
+                                ),
                             ),
                     ),
                 ),
@@ -211,7 +266,11 @@ val projectLists =
                         name = "Website",
                         urls =
                             listOf(
-                                ProjectUrl("https://pantech.kongjak.dev", "Visit", DOWNLOAD),
+                                ProjectUrl(
+                                    "https://pantech.kongjak.dev",
+                                    "Visit",
+                                    FaIcons.DOWNLOAD
+                                ),
                             ),
                     ),
                 ),
@@ -225,7 +284,11 @@ val projectLists =
                         name = "Github",
                         urls =
                             listOf(
-                                ProjectUrl("https://github.com/kongwoojin", "Github", GITHUB),
+                                ProjectUrl(
+                                    "https://github.com/kongwoojin",
+                                    "Github",
+                                    FaIcons.GITHUB
+                                ),
                             ),
                     ),
                 ),

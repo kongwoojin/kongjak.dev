@@ -2,64 +2,59 @@ package com.kongjak.kongjak.components.layouts
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import com.kongjak.kongjak.components.sections.Footer
-import com.kongjak.kongjak.components.widgets.ColorModeButton
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.ColumnScope
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.graphics.Color
-import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxSize
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.gridRow
 import com.varabyte.kobweb.compose.ui.modifiers.gridTemplateRows
 import com.varabyte.kobweb.compose.ui.modifiers.minHeight
-import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import com.varabyte.kobweb.core.PageContext
+import com.varabyte.kobweb.core.data.getValue
+import com.varabyte.kobweb.core.layout.Layout
+import com.varabyte.kobweb.silk.style.CssStyle
+import com.varabyte.kobweb.silk.style.toAttrs
+import com.kongjak.kongjak.components.sections.Footer
+import com.kongjak.kongjak.components.sections.NavHeader
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.fr
-import org.jetbrains.compose.web.css.percent
+import org.jetbrains.compose.web.css.vh
+import org.jetbrains.compose.web.dom.Div
 
-private val darkBgColor = Color.rgb(12, 12, 12)
-private val lightBgColor = Color.rgb(250, 250, 250)
+val PageContentStyle = CssStyle {
+    base { Modifier.fillMaxSize() }
+}
+
+class PageLayoutData(val title: String)
 
 @Composable
-fun PageLayout(
-    title: String,
-    content: @Composable ColumnScope.() -> Unit,
-) {
-    val colorMode = ColorMode.current
-    val bgColor = if (colorMode.isLight) lightBgColor else darkBgColor
-
-    LaunchedEffect(title) {
-        document.title = "Kongjak - $title"
+@Layout
+fun PageLayout(ctx: PageContext, content: @Composable ColumnScope.() -> Unit) {
+    val data = ctx.data.getValue<PageLayoutData>()
+    LaunchedEffect(data.title) {
+        document.title = "Kongjak - ${data.title}"
     }
 
-    ColorModeButton()
+    NavHeader()
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .minHeight(100.percent)
-            .backgroundColor(bgColor)
-            .gridTemplateRows {
-                size(1.fr)
-                size(minContent)
-            },
-        contentAlignment = Alignment.Center,
+            .minHeight(100.vh)
+            .gridTemplateRows { size(1.fr); size(minContent) },
+        contentAlignment = Alignment.Center
     ) {
         Column(
             modifier = Modifier.fillMaxSize().gridRow(1),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
+            Div(PageContentStyle.toAttrs()) {
                 content()
             }
-            Footer()
         }
+        Footer(modifier = Modifier.fillMaxWidth().gridRow(2))
     }
 }

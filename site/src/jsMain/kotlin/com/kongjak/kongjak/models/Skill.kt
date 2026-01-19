@@ -10,6 +10,6 @@ data class Skill(
 
     fun getIconPath(isLightMode: Boolean): String {
         val color = if (isLightMode) "000000" else "FFFFFF"
-        return "$SIMPLE_ICONS_CDN/$iconName/$color"
+        return "${SIMPLE_ICONS_CDN}/$iconName/$color"
     }
 }
