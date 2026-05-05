@@ -1,231 +1,155 @@
 package com.kongjak.kongjak.components.sections.index
 
 import androidx.compose.runtime.Composable
-import com.kongjak.kongjak.models.Project
-import com.kongjak.kongjak.models.ProjectPart
-import com.kongjak.kongjak.models.getFaIcon
-import com.kongjak.kongjak.toSitePalette
-import com.kongjak.kongjak.utils.DevIcon
-import com.kongjak.kongjak.utils.projectLists
-import com.varabyte.kobweb.compose.css.FontWeight
-import com.varabyte.kobweb.compose.css.TextAlign
-import com.varabyte.kobweb.compose.css.Transition
-import com.varabyte.kobweb.compose.foundation.layout.Arrangement
-import com.varabyte.kobweb.compose.foundation.layout.Column
-import com.varabyte.kobweb.compose.foundation.layout.Row
-import com.varabyte.kobweb.compose.ui.Alignment
-import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
-import com.varabyte.kobweb.compose.ui.modifiers.border
-import com.varabyte.kobweb.compose.ui.modifiers.borderBottom
-import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
-import com.varabyte.kobweb.compose.ui.modifiers.color
-import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
-import com.varabyte.kobweb.compose.ui.modifiers.fontSize
-import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
-import com.varabyte.kobweb.compose.ui.modifiers.id
-import com.varabyte.kobweb.compose.ui.modifiers.letterSpacing
-import com.varabyte.kobweb.compose.ui.modifiers.lineHeight
-import com.varabyte.kobweb.compose.ui.modifiers.margin
-import com.varabyte.kobweb.compose.ui.modifiers.maxWidth
-import com.varabyte.kobweb.compose.ui.modifiers.minHeight
-import com.varabyte.kobweb.compose.ui.modifiers.opacity
-import com.varabyte.kobweb.compose.ui.modifiers.padding
-import com.varabyte.kobweb.compose.ui.modifiers.textAlign
-import com.varabyte.kobweb.compose.ui.modifiers.transition
-import com.varabyte.kobweb.silk.components.navigation.Link
-import com.varabyte.kobweb.silk.components.text.SpanText
-import com.varabyte.kobweb.silk.style.CssStyle
-import com.varabyte.kobweb.silk.style.base
-import com.varabyte.kobweb.silk.style.selectors.hover
-import com.varabyte.kobweb.silk.style.toAttrs
-import com.varabyte.kobweb.silk.style.toModifier
-import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import org.jetbrains.compose.web.css.LineStyle
-import org.jetbrains.compose.web.css.cssRem
-import org.jetbrains.compose.web.css.em
-import org.jetbrains.compose.web.css.ms
-import org.jetbrains.compose.web.css.px
-import org.jetbrains.compose.web.css.vh
-import org.jetbrains.compose.web.dom.H2
-import org.jetbrains.compose.web.dom.H3
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.remember
+import com.varabyte.kobweb.silk.components.icons.fa.FaChevronRight
+import org.jetbrains.compose.web.dom.A
+import org.jetbrains.compose.web.dom.Article
+import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.P
+import org.jetbrains.compose.web.dom.Section
 import org.jetbrains.compose.web.dom.Span
 import org.jetbrains.compose.web.dom.Text
 
-val ProjectsSectionHeaderStyle = CssStyle.base {
-    Modifier
-        .fontSize(0.9.cssRem)
-        .fontWeight(FontWeight.Bold)
-        .color(colorMode.toSitePalette().accent)
-        .letterSpacing(0.15.em)
-        .margin(bottom = 64.px)
-        .textAlign(TextAlign.Center)
-}
+private data class ProjectModule(
+    val name: String,
+    val tags: List<String>,
+    val links: List<Pair<String, String>>,
+)
 
+private data class PortfolioProject(
+    val index: String,
+    val title: String,
+    val role: String,
+    val roleAt: String? = null,
+    val description: String,
+    val modules: List<ProjectModule>,
+)
 
-val ProjectCardStyle = CssStyle {
-    base {
-        Modifier
-            .fillMaxWidth()
-            .padding(32.px)
-            .borderRadius(16.px)
-            .backgroundColor(colorMode.toSitePalette().cardBackground)
-            .border(1.px, LineStyle.Solid, colorMode.toSitePalette().divider)
-            .margin(bottom = 24.px)
-            .transition(Transition.of("all", 300.ms))
-    }
-    hover {
-        Modifier.border(1.px, LineStyle.Solid, colorMode.toSitePalette().accent)
-    }
-}
-
-val ProjectTitleStyle = CssStyle.base {
-    Modifier
-        .color(colorMode.toSitePalette().title)
-        .fontWeight(FontWeight.Bold)
-        .margin(bottom = 4.px, top = 0.px)
-        .fontSize(1.5.cssRem)
-        .letterSpacing((-0.02).em)
-}
-
-val ProjectPositionStyle = CssStyle.base {
-    Modifier
-        .color(colorMode.toSitePalette().accent)
-        .fontSize(0.85.cssRem)
-        .fontWeight(FontWeight.Medium)
-        .margin(bottom = 12.px, top = 0.px)
-}
-
-val ProjectDescriptionStyle = CssStyle.base {
-    Modifier
-        .color(colorMode.toSitePalette().description)
-        .fontSize(0.95.cssRem)
-        .lineHeight(1.7)
-        .margin(bottom = 24.px, top = 0.px)
-}
-
-val PartListItemStyle = CssStyle.base {
-    Modifier
-        .fillMaxWidth()
-        .padding(16.px, 0.px)
-        .borderBottom(1.px, LineStyle.Solid, colorMode.toSitePalette().divider)
-}
-
-val PartListTitleStyle = CssStyle.base {
-    Modifier
-        .color(colorMode.toSitePalette().title)
-        .fontSize(0.9.cssRem)
-        .fontWeight(FontWeight.Medium)
-        .margin(bottom = 6.px)
-}
+private val projects = listOf(
+    PortfolioProject(
+        index = "01",
+        title = "KOIN",
+        role = "Android Developer",
+        roleAt = "BCSD",
+        description = "DAU 1,100+ 의 한국기술교육대학교 커뮤니티 서비스입니다. Android, iOS, Frontend, Backend, Design, Product Manager 및 Data Analyst 직군이 참여하고 있으며, 학식, 버스, 주변 식당, 시간표 등 기능을 Android, iOS, Web에서 제공합니다.",
+        modules = listOf(
+            ProjectModule(
+                name = "Android",
+                tags = listOf("Kotlin", "Jetpack Compose"),
+                links = listOf(
+                    "Play Store" to "https://play.google.com/store/apps/details?id=in.koreatech.koin",
+                    "Github" to "https://github.com/BCSDLab/KOIN_ANDROID",
+                ),
+            ),
+        ),
+    ),
+    PortfolioProject(
+        index = "02",
+        title = "Koreatech Board",
+        role = "Developer",
+        description = "학교 게시판을 모바일에서 편하게 확인할 수 있는 앱입니다. Android 애플리케이션, Go API, Python 크롤러로 구성되어 게시판 내용을 실시간으로 동기화합니다.",
+        modules = listOf(
+            ProjectModule("Android", listOf("Kotlin", "Jetpack Compose"), listOf("Github" to "https://github.com/kongwoojin/koreatech-board-android")),
+            ProjectModule("API", listOf("Go"), listOf("Github" to "https://github.com/kongwoojin/koreatech-board-api")),
+            ProjectModule("Crawler", listOf("Python"), listOf("Github" to "https://github.com/kongwoojin/koreatech-board-crawler")),
+        ),
+    ),
+    PortfolioProject(
+        index = "03",
+        title = "gobuild",
+        role = "Developer",
+        description = "Go 애플리케이션을 여러 OS와 아키텍처로 한 번에 빌드할 수 있는 CLI 도구입니다. 크로스 컴파일 과정을 자동화하여 배포를 간편하게 만들어줍니다.",
+        modules = listOf(
+            ProjectModule("CLI", listOf("Go"), listOf("Github" to "https://github.com/kongwoojin/gobuild")),
+        ),
+    ),
+    PortfolioProject(
+        index = "04",
+        title = "LineageOS for EF65S",
+        role = "Maintainer",
+        roleAt = "SKY VEGA DEV TEAM",
+        description = "팬택 베가 팝업노트를 위한 Custom ROM입니다. 공식 지원이 끝난 기기에 Android 9부터 11을 포팅하였습니다.",
+        modules = listOf(
+            ProjectModule("ROM", listOf("Android 9–11", "EF65S"), listOf(
+                "Download" to "https://dl.kongjak.dev/ef65/LineageOS/",
+                "Github" to "https://github.com/sky-vega-dev-team",
+            )),
+        ),
+    ),
+    PortfolioProject(
+        index = "05",
+        title = "Pantech Archive",
+        role = "Developer",
+        description = "팬택 기기의 펌웨어와 오픈소스 자료를 보존하는 아카이브입니다.",
+        modules = listOf(
+            ProjectModule("Website", listOf("Archive"), listOf("Visit" to "https://pantech.kongjak.dev")),
+        ),
+    ),
+)
 
 @Composable
 fun IndexProjects() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .minHeight(100.vh)
-            .id("projects")
-            .padding(topBottom = 100.px, leftRight = 24.px),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth().maxWidth(800.px),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            H2(attrs = ProjectsSectionHeaderStyle.toAttrs()) {
-                Text("PROJECTS")
-            }
+    val openState = remember { mutableStateMapOf<Int, Boolean>().also { it[0] = true } }
 
-            for (project in projectLists) {
-                ProjectWidget(project)
-            }
-        }
-    }
-}
+    Section(attrs = { id("projects") }) {
+        SectionHead("02", "projects/")
 
-@Composable
-fun ProjectWidget(project: Project) {
-    Column(
-        modifier = ProjectCardStyle.toModifier(),
-    ) {
-        H3(attrs = ProjectTitleStyle.toAttrs()) {
-            Text(project.name)
-        }
-        project.position?.let { position ->
-            P(attrs = ProjectPositionStyle.toAttrs()) {
-                Text(position)
-            }
-        }
-        P(attrs = ProjectDescriptionStyle.toAttrs()) {
-            Text(project.description)
-        }
-
-        PartsListStyle(project.parts)
-    }
-}
-
-@Composable
-fun PartsListStyle(parts: List<ProjectPart>) {
-    val colorMode = ColorMode.current
-    val techStackTextColor = colorMode.toSitePalette().description
-    val linkAccentColor = colorMode.toSitePalette().accent
-
-    Column(modifier = Modifier.fillMaxWidth()) {
-        for (part in parts) {
-            Column(modifier = PartListItemStyle.toModifier()) {
-                Span(attrs = PartListTitleStyle.toAttrs()) {
-                    Text(part.name)
-                }
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start,
-                ) {
-                    if (part.techStacks.isNotEmpty()) {
-                        Row(
-                            modifier = Modifier.margin(right = 16.px),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            for (techStack in part.techStacks) {
-                                Row(
-                                    modifier = Modifier.margin(right = 12.px),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
-                                    DevIcon(
-                                        modifier = Modifier.fontSize(0.8.cssRem).margin(right = 6.px),
-                                        icon = techStack.icon
-                                    )
-                                    SpanText(
-                                        text = techStack.name,
-                                        modifier = Modifier.Companion
-                                            .color(techStackTextColor)
-                                            .fontSize(0.8.cssRem),
-                                    )
+        Div(attrs = { classes("projects"); id("projectList") }) {
+            projects.forEachIndexed { idx, project ->
+                val isOpen = openState[idx] ?: false
+                Article(attrs = {
+                    classes("project", "reveal")
+                    attr("data-open", if (isOpen) "true" else "false")
+                }) {
+                    Div(attrs = {
+                        classes("p-head")
+                        onClick { openState[idx] = !isOpen }
+                    }) {
+                        Span(attrs = { classes("p-idx", "mono") }) { Text(project.index) }
+                        Div(attrs = { classes("p-title-wrap") }) {
+                            Div(attrs = { classes("p-title") }) { Text(project.title) }
+                            Div(attrs = { classes("p-role") }) {
+                                Text(project.role)
+                                if (project.roleAt != null) {
+                                    Span(attrs = { classes("at") }) { Text(" @ ") }
+                                    Text(project.roleAt)
                                 }
                             }
                         }
+                        Span(attrs = { classes("p-toggle"); attr("aria-hidden", "true") }) {
+                            ChevronIcon()
+                        }
+                        Span {}
                     }
-
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        for (url in part.urls) {
-                            Link(
-                                path = url.url,
-                                modifier = Modifier.Companion
-                                    .color(linkAccentColor)
-                                    .fontSize(0.8.cssRem)
-                                    .margin(right = 16.px)
-                                    .opacity(0.7F)
-                                    .transition(Transition.of("opacity", 150.ms)),
-                            ) {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    getFaIcon(url.icon)
-                                    SpanText(
-                                        text = url.urlName,
-                                        modifier = Modifier.margin(left = 6.px),
-                                    )
+                    Div(attrs = { classes("p-body") }) {
+                        Div {
+                            Div(attrs = { classes("p-body-inner") }) {
+                                P(attrs = { classes("p-desc") }) { Text(project.description) }
+                                Div(attrs = { classes("p-modules") }) {
+                                    for (module in project.modules) {
+                                        Div(attrs = { classes("p-mod") }) {
+                                            Div(attrs = { classes("p-mod-name") }) { Text(module.name) }
+                                            Div(attrs = { classes("p-mod-tags") }) {
+                                                for (tag in module.tags) {
+                                                    Span(attrs = { classes("p-tag") }) { Text(tag) }
+                                                }
+                                            }
+                                            Div(attrs = { classes("p-mod-links") }) {
+                                                for ((label, url) in module.links) {
+                                                    A(
+                                                        href = url,
+                                                        attrs = {
+                                                            classes("p-link")
+                                                            attr("target", "_blank")
+                                                            attr("rel", "noopener")
+                                                        }
+                                                    ) { Text(label) }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -233,5 +157,28 @@ fun PartsListStyle(parts: List<ProjectPart>) {
                 }
             }
         }
+
+        P(attrs = {
+            classes("mono")
+            style { property("margin-top", "18px"); property("font-size", "12px"); property("color", "var(--fg-mute)") }
+        }) {
+            Span(attrs = { style { property("color", "var(--fg-faint)") } }) { Text("$ ") }
+            Text("ls ~/projects | wc -l  ")
+            Span(attrs = { style { property("color", "var(--fg-faint)") } }) { Text("→ ") }
+            A(
+                href = "https://github.com/kongwoojin",
+                attrs = {
+                    attr("target", "_blank")
+                    attr("rel", "noopener")
+                    style { property("color", "var(--fg)"); property("border-bottom", "1px dashed var(--line-2)") }
+                }
+            ) { Text("github.com/kongwoojin") }
+            Text(" 에서 더 많은 프로젝트를 확인해보세요.")
+        }
     }
+}
+
+@Composable
+private fun ChevronIcon() {
+    FaChevronRight()
 }

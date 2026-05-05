@@ -1,139 +1,78 @@
 package com.kongjak.kongjak.components.sections.index
 
 import androidx.compose.runtime.Composable
-import com.kongjak.kongjak.components.widgets.TextTooltip
-import com.kongjak.kongjak.toSitePalette
-import com.kongjak.kongjak.utils.BLOG_URL
-import com.kongjak.kongjak.utils.GITHUB_URL
-import com.kongjak.kongjak.utils.MAIL_ADDRESS
-import com.kongjak.kongjak.utils.TELEGRAM_URL
-import com.varabyte.kobweb.compose.css.FontWeight
-import com.varabyte.kobweb.compose.css.Transition
-import com.varabyte.kobweb.compose.foundation.layout.Arrangement
-import com.varabyte.kobweb.compose.foundation.layout.Column
-import com.varabyte.kobweb.compose.foundation.layout.Row
-import com.varabyte.kobweb.compose.ui.Alignment
-import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.graphics.Color
-import com.varabyte.kobweb.compose.ui.modifiers.color
-import com.varabyte.kobweb.compose.ui.modifiers.fontSize
-import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
-import com.varabyte.kobweb.compose.ui.modifiers.id
-import com.varabyte.kobweb.compose.ui.modifiers.letterSpacing
-import com.varabyte.kobweb.compose.ui.modifiers.margin
-import com.varabyte.kobweb.compose.ui.modifiers.minHeight
-import com.varabyte.kobweb.compose.ui.modifiers.minWidth
-import com.varabyte.kobweb.compose.ui.modifiers.padding
-import com.varabyte.kobweb.compose.ui.modifiers.transition
-import com.varabyte.kobweb.compose.ui.toAttrs
-import com.varabyte.kobweb.silk.components.icons.fa.FaBlog
-import com.varabyte.kobweb.silk.components.icons.fa.FaEnvelope
-import com.varabyte.kobweb.silk.components.icons.fa.FaGithub
-import com.varabyte.kobweb.silk.components.icons.fa.FaPaperPlane
-import com.varabyte.kobweb.silk.components.icons.fa.IconSize
-import com.varabyte.kobweb.silk.components.icons.fa.IconStyle
-import com.varabyte.kobweb.silk.components.navigation.Link
-import com.varabyte.kobweb.silk.style.CssStyle
-import com.varabyte.kobweb.silk.style.selectors.hover
-import com.varabyte.kobweb.silk.style.toModifier
-import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import org.jetbrains.compose.web.css.cssRem
-import org.jetbrains.compose.web.css.em
-import org.jetbrains.compose.web.css.ms
-import org.jetbrains.compose.web.css.percent
-import org.jetbrains.compose.web.css.px
-import org.jetbrains.compose.web.css.vh
+import androidx.compose.runtime.DisposableEffect
+import kotlinx.browser.document
+import kotlinx.browser.window
+import org.w3c.dom.Element
+import org.jetbrains.compose.web.dom.B
+import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.H1
 import org.jetbrains.compose.web.dom.P
+import org.jetbrains.compose.web.dom.Section
+import org.jetbrains.compose.web.dom.Span
 import org.jetbrains.compose.web.dom.Text
-
-val SocialLinkStyle = CssStyle {
-        base {
-            Modifier
-                .color(colorMode.toSitePalette().link)
-                .padding(16.px)
-                .margin(leftRight = 8.px)
-                .transition(Transition.of("all", 200.ms))
-        }
-        hover {
-            Modifier.color(colorMode.toSitePalette().accent)
-        }
-    }
+import kotlin.math.roundToInt
+import kotlin.random.Random
 
 @Composable
 fun IndexMain() {
-    val colorMode = ColorMode.current
-    val titleColor = if (colorMode.isLight) Color.rgb(20, 20, 20) else Color.rgb(255, 255, 255)
-    val subtitleColor = if (colorMode.isLight) Color.rgba(0, 0, 0, 0.5F) else Color.rgba(255, 255, 255, 0.5F)
-
-    Column(
-        modifier = Modifier
-            .minWidth(100.percent)
-            .minHeight(100.vh)
-            .id("main")
-            .padding(24.px),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        H1(
-            attrs = Modifier
-                .fontSize(4.cssRem)
-                .fontWeight(FontWeight.Bold)
-                .color(titleColor)
-                .letterSpacing((-0.03).em)
-                .margin(bottom = 16.px, top = 0.px)
-                .toAttrs()
-        ) {
-            Text("Kongjak")
+    Section(attrs = { classes("hero") }) {
+        Div(attrs = { classes("hero-meta") }) {
+            Span(attrs = { classes("pill") }) {
+                Span(attrs = { classes("led") }) {}
+                Span(attrs = { classes("ok") }) { Text("ONLINE") }
+            }
+            Span { Text("KOREA · KST") }
+            Span(attrs = { classes("mono") }) { Text("v2026.05") }
         }
 
-        P(
-            attrs = Modifier
-                .fontSize(1.2.cssRem)
-                .fontWeight(FontWeight.Normal)
-                .color(subtitleColor)
-                .letterSpacing(0.02.em)
-                .margin(bottom = 48.px, top = 0.px)
-                .toAttrs(),
-        ) {
-            Text("Android Developer")
+        H1 {
+            Span(attrs = { id("typedName") }) { Text("WooJin Kong") }
+            Span(attrs = { classes("caret"); attr("aria-hidden", "true") }) {}
         }
 
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Link(
-                path = TELEGRAM_URL,
-                modifier = SocialLinkStyle.toModifier()
-            ) {
-                FaPaperPlane(size = IconSize.XL, style = IconStyle.FILLED)
-            }
-            TextTooltip("Telegram")
-
-            Link(
-                path = GITHUB_URL,
-                modifier = SocialLinkStyle.toModifier()
-            ) {
-                FaGithub(size = IconSize.XL)
-            }
-            TextTooltip("GitHub")
-
-            Link(
-                path = BLOG_URL,
-                modifier = SocialLinkStyle.toModifier()
-            ) {
-                FaBlog(size = IconSize.XL)
-            }
-            TextTooltip("Blog")
-
-            Link(
-                path = MAIL_ADDRESS,
-                modifier = SocialLinkStyle.toModifier()
-            ) {
-                FaEnvelope(size = IconSize.XL, style = IconStyle.FILLED)
-            }
-            TextTooltip("Email")
+        P(attrs = { classes("role", "mono") }) {
+            Span(attrs = { classes("arrow") }) { Text("→") }
+            Text(" Android Developer")
         }
+
+        P(attrs = { classes("bio") }) {
+            B { Text("Kotlin") }
+            Text("과 ")
+            B { Text("Jetpack Compose") }
+            Text("로 안드로이드 앱을 만듭니다.")
+        }
+    }
+
+    DisposableEffect(Unit) {
+        val el = document.getElementById("typedName")
+        val target = "WooJin Kong"
+        el?.textContent = ""
+        var i = 0
+        var pending = 0
+        var cancelled = false
+        var tickFn: (() -> Unit)? = null
+        tickFn = {
+            if (!cancelled && i <= target.length) {
+                el?.textContent = target.substring(0, i)
+                i++
+                pending = window.setTimeout({ tickFn?.invoke() }, (90 + Random.nextDouble() * 40).roundToInt())
+            }
+        }
+        pending = window.setTimeout({ tickFn?.invoke() }, 250)
+        onDispose {
+            cancelled = true
+            window.clearTimeout(pending)
+            el?.textContent = target
+        }
+    }
+
+    DisposableEffect(Unit) {
+        val elements = document.querySelectorAll(".reveal")
+        for (idx in 0 until elements.length) {
+            (elements.item(idx) as? Element)?.classList?.add("in")
+        }
+        onDispose {}
     }
 }

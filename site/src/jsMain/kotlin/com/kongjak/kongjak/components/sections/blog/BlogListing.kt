@@ -1,50 +1,32 @@
 package com.kongjak.kongjak.components.sections.blog
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import com.kongjak.kongjak.generated.blogPosts
 import com.kongjak.kongjak.models.BlogPostMetadata
-import com.kongjak.kongjak.pages.blog.BlogCardStyle
-import com.kongjak.kongjak.pages.blog.BlogHeroLabelStyle
-import com.kongjak.kongjak.toSitePalette
+import com.kongjak.kongjak.utils.extractYear
+import com.kongjak.kongjak.utils.formatShortDate
 import com.kongjak.kongjak.utils.parseTagQuery
 import com.kongjak.kongjak.utils.slugifyTag
-import com.varabyte.kobweb.compose.css.FontWeight
-import com.varabyte.kobweb.compose.css.TextAlign
-import com.varabyte.kobweb.compose.foundation.layout.Arrangement
-import com.varabyte.kobweb.compose.foundation.layout.Column
-import com.varabyte.kobweb.compose.foundation.layout.Row
-import com.varabyte.kobweb.compose.ui.Alignment
-import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
-import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
-import com.varabyte.kobweb.compose.ui.modifiers.color
-import com.varabyte.kobweb.compose.ui.modifiers.display
-import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
-import com.varabyte.kobweb.compose.ui.modifiers.fontSize
-import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
-import com.varabyte.kobweb.compose.ui.modifiers.gap
-import com.varabyte.kobweb.compose.ui.modifiers.letterSpacing
-import com.varabyte.kobweb.compose.ui.modifiers.lineHeight
-import com.varabyte.kobweb.compose.ui.modifiers.margin
-import com.varabyte.kobweb.compose.ui.modifiers.maxWidth
-import com.varabyte.kobweb.compose.ui.modifiers.minHeight
-import com.varabyte.kobweb.compose.ui.modifiers.padding
-import com.varabyte.kobweb.compose.ui.modifiers.textAlign
-import com.varabyte.kobweb.compose.ui.modifiers.classNames
-import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.PageContext
-import com.varabyte.kobweb.silk.components.navigation.Link
-import com.varabyte.kobweb.silk.style.toAttrs
-import com.varabyte.kobweb.silk.style.toModifier
-import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import kotlinx.browser.window
-import org.jetbrains.compose.web.css.cssRem
-import org.jetbrains.compose.web.css.DisplayStyle
-import org.jetbrains.compose.web.css.em
-import org.jetbrains.compose.web.css.px
-import org.jetbrains.compose.web.css.vh
+import org.jetbrains.compose.web.dom.A
+import org.jetbrains.compose.web.dom.Aside
+import org.jetbrains.compose.web.dom.B
+import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.H1
+import org.jetbrains.compose.web.dom.H2
+import org.jetbrains.compose.web.dom.H3
+import org.jetbrains.compose.web.dom.Input
+import org.jetbrains.compose.web.dom.Label
+import org.jetbrains.compose.web.dom.TagElement
+import org.w3c.dom.HTMLElement
+import org.jetbrains.compose.web.dom.Li
 import org.jetbrains.compose.web.dom.P
+import org.jetbrains.compose.web.dom.Section
+import org.jetbrains.compose.web.dom.Span
 import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.dom.Ul
 
 @Composable
 fun BlogListing(
@@ -53,193 +35,219 @@ fun BlogListing(
     heading: String,
     description: String,
 ) {
-    val colorMode = ColorMode.current
-    val currentTagSlug = parseTagQuery(window.location.search)
-    val filteredPosts = posts.filter { post ->
-        currentTagSlug == null || post.tags.any { slugifyTag(it) == currentTagSlug }
+    val currentTagSlug = remember { parseTagQuery(window.location.search) }
+    val groupedByYear = remember(posts, currentTagSlug) {
+        posts
+            .filter { post ->
+                currentTagSlug == null || post.tags.any { slugifyTag(it) == currentTagSlug }
+            }
+            .groupBy { extractYear(it.date) }
+            .entries
+            .sortedByDescending { it.key }
+            .toList()
     }
-    val currentCategorySlug = posts.firstOrNull()?.categorySlug?.takeIf { pageContext.route.path == "/blog/$it" }
+    val filteredCount = groupedByYear.sumOf { it.value.size }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .minHeight(100.vh)
-            .padding(top = 8.cssRem, bottom = 5.cssRem, leftRight = 24.px),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .maxWidth(1180.px)
-                .gap(28.px),
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.Top,
-        ) {
-            BlogSidebar(
-                availablePosts = posts,
-                currentCategorySlug = currentCategorySlug,
-                currentTagSlug = currentTagSlug,
-                basePath = pageContext.route.path,
-            )
+    BlogHead(heading = heading, description = description, totalPosts = posts.size)
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .maxWidth(820.px)
-                    .classNames("blog-content-panel")
-                    .backgroundColor(colorMode.toSitePalette().nearBackground)
-                    .borderRadius(14.px)
-                    .padding(28.px),
-                horizontalAlignment = Alignment.Start,
-            ) {
-                P(attrs = BlogHeroLabelStyle.toAttrs()) {
-                    Text("BLOG")
+    Div(attrs = { classes("blog-layout") }) {
+        Div(attrs = { classes("main-col") }) {
+            Div(attrs = { classes("toolbar") }) {
+                Label(attrs = { classes("search") }) {
+                    Span(attrs = { classes("pl") }) { Text("$") }
+                    Span(attrs = { classes("mono"); style { property("color", "var(--fg-mute)") } }) {
+                        Text("grep")
+                    }
+                    Input(type = org.jetbrains.compose.web.attributes.InputType.Search) {
+                        attr("placeholder", "제목, 내용으로 검색…")
+                        attr("disabled", "")
+                    }
+                    TagElement<HTMLElement>(
+                        tagName = "kbd",
+                        applyAttrs = null,
+                        content = { Text("/") }
+                    )
                 }
-                H1(
-                    attrs = Modifier
-                        .fontSize(3.cssRem)
-                        .fontWeight(FontWeight.Bold)
-                        .letterSpacing((-0.03).em)
-                        .margin(top = 12.px, bottom = 10.px)
-                        .textAlign(TextAlign.Start)
-                        .toAttrs()
-                ) {
-                    Text(heading)
+            }
+
+            if (currentTagSlug != null) {
+                P(attrs = {
+                    classes("mono")
+                    style {
+                        property("margin", "0 0 16px")
+                        property("color", "var(--accent)")
+                        property("font-size", "12.5px")
+                    }
+                }) {
+                    Text("# tag: $currentTagSlug · $filteredCount posts")
                 }
-                if (description.isNotBlank()) {
-                    P(
-                        attrs = Modifier
-                            .color(colorMode.toSitePalette().description)
-                            .margin(top = 0.px, bottom = 28.px)
-                            .textAlign(TextAlign.Start)
-                            .toAttrs()
-                    ) {
-                        Text(description)
+            }
+
+            if (groupedByYear.isEmpty()) {
+                Div(attrs = { classes("empty") }) {
+                    Span(attrs = { classes("pl") }) { Text("$") }
+                    Text(" grep -r \"${currentTagSlug ?: ""}\" ~/posts ")
+                    Span(attrs = { style { property("color", "var(--fg-faint)") } }) {
+                        Text("→ no matches found")
                     }
                 }
-
-                if (posts.isEmpty()) {
-                    P(
-                        attrs = Modifier
-                            .margin(0.px)
-                            .color(colorMode.toSitePalette().description)
-                            .toAttrs()
-                    ) {
-                        Text("No posts yet.")
-                    }
-                    return@Column
-                }
-
-                if (currentTagSlug != null) {
-                    P(
-                        attrs = Modifier
-                            .margin(top = 0.px, bottom = 24.px)
-                            .color(colorMode.toSitePalette().accent)
-                            .fontWeight(FontWeight.Medium)
-                            .toAttrs()
-                    ) {
-                        Text("Filtered by tag: #$currentTagSlug")
-                    }
-                }
-
-                if (filteredPosts.isEmpty()) {
-                    P(
-                        attrs = Modifier
-                            .margin(0.px)
-                            .color(colorMode.toSitePalette().description)
-                            .toAttrs()
-                    ) {
-                        Text("No posts match this tag.")
-                    }
-                    return@Column
-                }
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .margin(top = 16.px)
-                        .gap(20.px),
-                    verticalArrangement = Arrangement.spacedBy(20.px),
-                ) {
-                    filteredPosts.forEach { post ->
-                        Link(path = post.route, modifier = BlogCardStyle.toModifier()) {
-                            Column(modifier = Modifier.fillMaxWidth().gap(12.px)) {
-                                P(
-                                    attrs = Modifier
-                                        .margin(0.px)
-                                        .color(colorMode.toSitePalette().accent)
-                                        .fontSize(0.8.cssRem)
-                                        .toAttrs()
-                                ) {
-                                    Text(buildString {
-                                        append(post.date)
-                                        if (post.categoryName != null) {
-                                            append(" / ")
-                                            append(post.categoryName)
-                                        }
-                                    })
-                                }
-
-                                P(
-                                    attrs = Modifier
-                                        .margin(0.px)
-                                        .color(colorMode.toSitePalette().title)
-                                        .fontSize(1.5.cssRem)
-                                        .fontWeight(FontWeight.Bold)
-                                        .lineHeight(1.3)
-                                        .toAttrs()
-                                ) {
-                                    Text(post.title)
-                                }
-
-                                if (post.description.isNotBlank()) {
-                                    P(
-                                        attrs = Modifier
-                                            .fillMaxWidth()
-                                            .display(DisplayStyle.Block)
-                                            .classNames("blog-card-description")
-                                            .margin(0.px)
-                                            .color(colorMode.toSitePalette().description)
-                                            .lineHeight(1.7)
-                                            .toAttrs {
-                                                style {
-                                                    property("white-space", "nowrap")
-                                                    property("overflow", "hidden")
-                                                    property("text-overflow", "ellipsis")
-                                                }
-                                            }
-                                    ) {
-                                        Text(post.description)
-                                    }
-                                }
-
-                                if (post.tags.isNotEmpty()) {
-                                    P(
-                                        attrs = Modifier
-                                            .margin(0.px)
-                                            .color(colorMode.toSitePalette().accent)
-                                            .fontSize(0.9.cssRem)
-                                            .lineHeight(1.8)
-                                            .toAttrs()
-                                    ) {
-                                        Text(post.tags.joinToString("  ") { "#$it" })
-                                    }
-                                }
-
-                                P(
-                                    attrs = Modifier
-                                        .margin(0.px)
-                                        .color(colorMode.toSitePalette().accent)
-                                        .fontWeight(FontWeight.Medium)
-                                        .toAttrs()
-                                ) {
-                                    Text("Read post")
-                                }
-                            }
+            } else {
+                groupedByYear.forEach { (year, yearPosts) ->
+                    Section(attrs = { classes("year-group") }) {
+                        Div(attrs = { classes("year-label") }) {
+                            B { Text(year) }
+                            Span { Text("· ${yearPosts.size} posts") }
+                            Span(attrs = { classes("rule") }) {}
                         }
+                        yearPosts.forEach { post -> BlogPostRow(post) }
                     }
+                }
+            }
+        }
+
+        Aside(attrs = { classes("side") }) {
+            BlogSidebarTerminal(posts = blogPosts, currentTag = currentTagSlug)
+        }
+    }
+}
+
+private val blogYearRange: Pair<Int, Int>? by lazy {
+    val years = blogPosts.mapNotNull { extractYear(it.date).toIntOrNull() }
+    if (years.isEmpty()) null else years.min() to years.max()
+}
+
+@Composable
+private fun BlogHead(heading: String, description: String, totalPosts: Int) {
+    Section(attrs = { classes("blog-head") }) {
+        Div(attrs = { classes("meta") }) {
+            Span {
+                Span(attrs = { classes("arrow") }) { Text("→") }
+                Text(" blog.kongjak.dev")
+            }
+        }
+        H1 { Text(heading) }
+        if (description.isNotBlank()) {
+            P(attrs = {
+                style {
+                    property("color", "var(--fg-soft)")
+                    property("font-size", "15px")
+                    property("margin", "0")
+                    property("max-width", "56ch")
+                }
+            }) { Text(description) }
+        }
+        Div(attrs = { classes("stats") }) {
+            Span {
+                B { Text(totalPosts.toString()) }
+                Text(" posts")
+            }
+            blogYearRange?.let { (min, max) ->
+                Span {
+                    B { Text(min.toString()) }
+                    Text(" → ")
+                    B { Text(max.toString()) }
                 }
             }
         }
     }
 }
+
+@Composable
+private fun BlogPostRow(post: BlogPostMetadata) {
+    A(href = post.route, attrs = { classes("blog-post") }) {
+        Div(attrs = { classes("post-date") }) { Text(formatShortDate(post.date)) }
+        Div(attrs = { classes("post-body") }) {
+            H2(attrs = { classes("post-title") }) { Text(post.title) }
+            if (post.description.isNotBlank()) {
+                P(attrs = { classes("post-excerpt") }) { Text(post.description) }
+            }
+        }
+        Div(attrs = { classes("post-meta") }) {
+            Span(attrs = { classes("cat") }) {
+                val cat = post.categoryName
+                if (cat != null) Text(cat) else Text("blog")
+            }
+        }
+    }
+}
+
+private data class CategoryEntry(val slug: String, val name: String, val count: Int)
+
+@Composable
+private fun BlogSidebarTerminal(posts: List<BlogPostMetadata>, currentTag: String?) {
+    val orderedCategories = remember(posts) {
+        posts.groupBy { it.categorySlug to it.categoryName }
+            .entries
+            .filter { it.key.first != null }
+            .sortedByDescending { it.value.size }
+            .map { (key, list) -> CategoryEntry(key.first!!, key.second ?: key.first!!, list.size) }
+    }
+    val allTags = remember(posts) {
+        posts.flatMap { it.tags }
+            .filter { it.isNotBlank() }
+            .groupingBy { it }
+            .eachCount()
+            .entries
+            .sortedByDescending { it.value }
+            .map { it.key }
+            .take(20)
+    }
+
+    Div(attrs = { classes("side-block") }) {
+        H3 { Text("categories") }
+        Ul(attrs = { classes("cats") }) {
+            Li {
+                A(href = "/blog") {
+                    Span { Text("분류 전체보기") }
+                    Span(attrs = { classes("ct") }) { Text(posts.size.toString()) }
+                }
+            }
+            orderedCategories.forEach { entry ->
+                Li {
+                    A(href = "/blog/${entry.slug}") {
+                        Span { Text(entry.name) }
+                        Span(attrs = { classes("ct") }) { Text(entry.count.toString()) }
+                    }
+                }
+            }
+        }
+    }
+
+    if (allTags.isNotEmpty()) {
+        Div(attrs = { classes("side-block") }) {
+            H3 { Text("tags") }
+            Div(attrs = { classes("tags") }) {
+                allTags.forEach { tag ->
+                    val slug = slugifyTag(tag)
+                    A(href = "/blog?tag=$slug", attrs = {
+                        classes("tag")
+                        if (currentTag == slug) {
+                            style { property("color", "var(--fg)") }
+                        }
+                    }) { Text(tag) }
+                }
+            }
+        }
+    }
+
+    Div(attrs = { classes("side-block") }) {
+        H3 { Text("links") }
+        Ul(attrs = { classes("cats") }) {
+            Li { A(href = "/") { Span { Text("↗ portfolio") } } }
+            Li {
+                A(href = "https://github.com/kongwoojin", attrs = {
+                    attr("target", "_blank")
+                    attr("rel", "noopener")
+                }) { Span { Text("↗ github") } }
+            }
+            Li { A(href = "mailto:kongjak@kongjak.dev") { Span { Text("↗ email") } } }
+            Li {
+                A(href = "/feed.xml", attrs = {
+                    attr("target", "_blank")
+                    attr("rel", "noopener")
+                }) { Span { Text("↗ rss") } }
+            }
+        }
+    }
+}
+

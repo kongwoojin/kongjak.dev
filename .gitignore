@@ -1,6 +1,7 @@
 # General ignores
 .DS_Store
-build
+/build/
+/*/build/
 out
 kotlin-js-store
 
