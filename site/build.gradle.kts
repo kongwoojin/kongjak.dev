@@ -1,8 +1,8 @@
-import com.kongjak.build.FeedConfig
-import com.kongjak.build.fetchAndGenerateContributions
-import com.kongjak.build.generateBlogMetadata
-import com.kongjak.build.generateBuildInfo
-import com.kongjak.build.resolveGitHeadRefFile
+import dev.kongjak.build.FeedConfig
+import dev.kongjak.build.fetchAndGenerateContributions
+import dev.kongjak.build.generateBlogMetadata
+import dev.kongjak.build.generateBuildInfo
+import dev.kongjak.build.resolveGitHeadRefFile
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
 import kotlinx.html.link
 import kotlinx.html.script
@@ -15,7 +15,7 @@ plugins {
     alias(libs.plugins.kobwebx.markdown)
 }
 
-group = "com.kongjak.kongjak"
+group = "dev.kongjak.kongjak"
 version = "1.0-SNAPSHOT"
 
 // ----- paths -----
@@ -58,7 +58,7 @@ val generateBlogMetadata = tasks.register("generateBlogMetadata") {
 
 val fetchGithubContributions = tasks.register("fetchGithubContributions") {
     val outFile = generatedContributionsDir.get().asFile
-        .resolve("com/kongjak/kongjak/generated/GithubContributions.kt")
+        .resolve("dev/kongjak/kongjak/generated/GithubContributions.kt")
     val cacheFile = contributionsCacheFile.get().asFile
 
     inputs.property("username", githubUsername)
@@ -83,7 +83,7 @@ val fetchGithubContributions = tasks.register("fetchGithubContributions") {
 
 val generateBuildInfo = tasks.register("generateBuildInfo") {
     val outFile = generatedBuildInfoDir.get().asFile
-        .resolve("com/kongjak/kongjak/generated/BuildInfo.kt")
+        .resolve("dev/kongjak/kongjak/generated/BuildInfo.kt")
 
     // Re-run when HEAD or the ref it points to changes (covers checkouts and new commits).
     val headFile = rootDir.resolve(".git/HEAD")
