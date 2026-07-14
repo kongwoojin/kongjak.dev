@@ -1,6 +1,4 @@
-import dev.kongjak.build.FeedConfig
 import dev.kongjak.build.fetchAndGenerateContributions
-import dev.kongjak.build.generateBlogMetadata
 import dev.kongjak.build.generateBuildInfo
 import dev.kongjak.build.resolveGitHeadRefFile
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
@@ -12,7 +10,6 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kobweb.application)
-    alias(libs.plugins.kobwebx.markdown)
 }
 
 group = "dev.kongjak.kongjak"
@@ -20,9 +17,6 @@ version = "1.0-SNAPSHOT"
 
 // ----- paths -----
 
-val blogMarkdownDir = layout.projectDirectory.dir("src/jsMain/resources/markdown/blog")
-val generatedBlogMetadataDir = layout.buildDirectory.dir("generated/blog-metadata/src/jsMain/kotlin")
-val generatedBlogFeedDir = layout.buildDirectory.dir("generated/blog-feed/jsMain/resources")
 val generatedContributionsDir = layout.buildDirectory.dir("generated/github-contributions/src/jsMain/kotlin")
 val generatedBuildInfoDir = layout.buildDirectory.dir("generated/build-info/src/jsMain/kotlin")
 val contributionsCacheFile = layout.buildDirectory.file("cache/github-contributions.json")
@@ -32,29 +26,7 @@ val contributionsCacheFile = layout.buildDirectory.file("cache/github-contributi
 val githubUsername = "kongwoojin"
 val contributionsCacheTtlMillis = 12 * 60 * 60 * 1000L
 
-val feedConfig = FeedConfig(
-    siteBaseUrl = "https://kongjak.com",
-    title = "Kongjak Blog",
-    description = "안드로이드 개발자 되기",
-    language = "ko",
-)
-
 // ----- code-generation tasks -----
-
-val generateBlogMetadata = tasks.register("generateBlogMetadata") {
-    inputs.dir(blogMarkdownDir)
-    outputs.dir(generatedBlogMetadataDir)
-    outputs.dir(generatedBlogFeedDir)
-
-    doLast {
-        generateBlogMetadata(
-            blogMarkdownDir = blogMarkdownDir.asFile,
-            metadataDir = generatedBlogMetadataDir.get().asFile,
-            feedDir = generatedBlogFeedDir.get().asFile,
-            feedConfig = feedConfig,
-        )
-    }
-}
 
 val fetchGithubContributions = tasks.register("fetchGithubContributions") {
     val outFile = generatedContributionsDir.get().asFile
@@ -127,12 +99,6 @@ kobweb {
                     rel = "stylesheet"
                     href = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
                 }
-                link {
-                    rel = "alternate"
-                    attributes["type"] = "application/rss+xml"
-                    attributes["title"] = "${feedConfig.title} RSS"
-                    href = "/feed.xml"
-                }
             }
             description.set("Powered by Kobweb")
         }
@@ -144,10 +110,8 @@ kotlin {
 
     sourceSets {
         jsMain {
-            kotlin.srcDir(generatedBlogMetadataDir)
             kotlin.srcDir(generatedContributionsDir)
             kotlin.srcDir(generatedBuildInfoDir)
-            resources.srcDir(generatedBlogFeedDir)
 
             dependencies {
                 implementation(libs.compose.runtime)
@@ -155,14 +119,12 @@ kotlin {
                 implementation(libs.kobweb.core)
                 implementation(libs.kobweb.silk)
                 implementation(libs.silk.icons.fa)
-                implementation(libs.kobwebx.markdown)
             }
         }
     }
 }
 
 tasks.matching { it.name.contains("KotlinJs") }.configureEach {
-    dependsOn(generateBlogMetadata)
     dependsOn(fetchGithubContributions)
     dependsOn(generateBuildInfo)
 }

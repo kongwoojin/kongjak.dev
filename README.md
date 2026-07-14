@@ -22,14 +22,9 @@ Source code of [kongjak.dev](https://kongjak.dev)
 ```
 site/src/jsMain/
 ├── kotlin/         # Kotlin/JS 소스 (페이지, 컴포넌트, 모델)
-└── resources/
-    └── markdown/   # 블로그 포스트 (.md)
-        ├── android/
-        ├── cs_study/
-        ├── legacy/
-        └── retrospective/
+└── resources/      # 폰트, 이력서 등 정적 파일
 
-buildSrc/           # 빌드타임 코드 생성 (블로그 메타데이터, RSS, GitHub 기여도)
+buildSrc/           # 빌드타임 코드 생성 (GitHub 기여도, 빌드 정보)
 ```
 
 ## 로컬 실행
