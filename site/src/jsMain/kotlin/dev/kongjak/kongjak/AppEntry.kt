@@ -13,6 +13,7 @@ import com.varabyte.kobweb.silk.theme.colors.systemPreference
 import kotlinx.browser.document
 
 private const val COLOR_MODE_KEY = "kongjak:colorMode"
+private const val SITE_FONT_STYLE_ID = "kongjak-site-font"
 
 @InitSilk
 fun initColorMode(ctx: InitSilkContext) {
@@ -23,6 +24,22 @@ fun initColorMode(ctx: InitSilkContext) {
 @Composable
 fun AppEntry(content: @Composable () -> Unit) {
     SilkApp {
+        LaunchedEffect(Unit) {
+            if (document.getElementById(SITE_FONT_STYLE_ID) == null) {
+                val style = document.createElement("style")
+                style.id = SITE_FONT_STYLE_ID
+                style.textContent = """
+                @font-face {
+                    font-family: 'SUIT Variable';
+                    src: url('/fonts/SUIT-Variable.woff2') format('woff2');
+                    font-weight: 100 900;
+                    font-style: normal;
+                    font-display: swap;
+                }
+                """.trimIndent()
+                document.head?.appendChild(style)
+            }
+        }
         val colorMode = ColorMode.current
         LaunchedEffect(colorMode) {
             val theme = if (colorMode.isLight) "light" else "dark"

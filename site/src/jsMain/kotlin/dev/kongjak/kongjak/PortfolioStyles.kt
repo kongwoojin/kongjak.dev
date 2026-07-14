@@ -28,16 +28,249 @@ fun initPortfolioStyles(ctx: InitSilkContext) {
     ctx.skills()
     ctx.projects()
     ctx.contributions()
-    ctx.writing()
     ctx.contact()
     ctx.footer()
     ctx.revealAnimation()
     ctx.responsiveTablet()
     ctx.responsiveMobile()
     ctx.responsiveSmallMobile()
-    ctx.blogHeaderAndList()
-    ctx.blogArticle()
     ctx.tweaksPanel()
+    ctx.productRedesign()
+    ctx.caseStudyStyles()
+}
+
+private fun InitSilkContext.productRedesign() {
+    props(":root",
+        "--bg" to "#f7f8fa", "--bg-soft" to "#eef1f3", "--bg-card" to "#ffffff",
+        "--line" to "#dce1e5", "--line-2" to "#bdc6cc", "--fg" to "#18201d",
+        "--fg-soft" to "#4b5752", "--fg-mute" to "#75817b", "--fg-faint" to "#aeb8b3",
+        "--accent" to "#087f5b", "--accent-2" to "#ef6c47", "--accent-dim" to "#dcefe8",
+        "--grid" to "rgba(24,32,29,.035)", "--max" to "1080px", "--gutter" to "32px",
+        "--font-sans" to "\"SUIT Variable\", \"Pretendard Variable\", -apple-system, BlinkMacSystemFont, system-ui, sans-serif")
+    props(":root[data-theme=\"dark\"]",
+        "--bg" to "#111513", "--bg-soft" to "#1a201d", "--bg-card" to "#171c19",
+        "--line" to "#2b332f", "--line-2" to "#46514c", "--fg" to "#eef4f0",
+        "--fg-soft" to "#b3beb8", "--fg-mute" to "#849089", "--fg-faint" to "#535e58",
+        "--accent" to "#4bd0a0", "--accent-2" to "#ff8a68", "--accent-dim" to "#183d31",
+        "--grid" to "rgba(255,255,255,.03)")
+    props("body", "font-size" to "15px", "line-height" to "1.65", "letter-spacing" to "0")
+    props("body::before", "background-image" to "radial-gradient(var(--grid) 1px, transparent 1px)",
+        "background-size" to "24px 24px", "mask-image" to "linear-gradient(to bottom, black, transparent 75%)",
+        "-webkit-mask-image" to "linear-gradient(to bottom, black, transparent 75%)", "opacity" to ".7")
+    props(".shell", "max-width" to "var(--max)", "padding" to "0 var(--gutter)")
+
+    props(".topbar", "background" to "color-mix(in oklab, var(--bg) 88%, transparent)",
+        "border-bottom" to "1px solid var(--line)", "backdrop-filter" to "blur(16px)")
+    props(".topbar-inner", "max-width" to "var(--max)", "padding" to "14px var(--gutter)",
+        "font-family" to "var(--font-sans)", "font-size" to "13px")
+    props(".brand", "gap" to "9px", "font-size" to "14px", "letter-spacing" to "0")
+    props(".brand .dot", "display" to "block", "width" to "8px", "height" to "8px")
+    props(".brand span", "color" to "var(--fg-mute)")
+    props(".nav", "gap" to "6px")
+    props(".nav a", "padding" to "6px 9px", "border-radius" to "5px")
+    props(".nav a:hover", "background" to "var(--bg-soft)")
+    props(".theme-toggle", "width" to "32px", "height" to "32px", "border-radius" to "6px")
+
+    props("section", "padding" to "82px 0")
+    props(".hero", "min-height" to "auto", "padding" to "64px 0 72px", "display" to "grid",
+        "grid-template-columns" to "minmax(0, 1.08fr) minmax(300px, .72fr)", "align-items" to "center", "gap" to "72px")
+    props(".hero-copy", "min-width" to "0")
+    props(".hero-kicker", "display" to "flex", "align-items" to "center", "gap" to "9px",
+        "margin-bottom" to "24px", "font-family" to "var(--font-mono)", "font-size" to "11px",
+        "color" to "var(--fg-mute)", "text-transform" to "uppercase")
+    props(".status-dot", "width" to "8px", "height" to "8px", "border-radius" to "50%", "background" to "var(--accent)",
+        "box-shadow" to "0 0 0 4px color-mix(in oklab, var(--accent) 15%, transparent)")
+    props(".hero h1", "margin" to "0 0 26px", "font-size" to "clamp(48px, 7vw, 76px)", "line-height" to "1",
+        "font-weight" to "760", "letter-spacing" to "0", "color" to "var(--fg)")
+    props(".hero-lead", "margin" to "0", "max-width" to "16ch", "font-size" to "clamp(24px, 3vw, 34px)",
+        "line-height" to "1.35", "color" to "var(--fg)")
+    props(".hero-lead b", "font-weight" to "650", "color" to "var(--accent)")
+    props(".hero-about", "max-width" to "54ch", "margin" to "0", "color" to "var(--fg-soft)", "font-size" to "17px", "line-height" to "1.75")
+    props(".hero-actions", "display" to "flex", "align-items" to "center", "gap" to "22px", "margin-top" to "30px")
+    props(".primary-action", "display" to "inline-flex", "padding" to "11px 16px", "border-radius" to "6px",
+        "background" to "var(--accent)", "color" to "#fff", "font-weight" to "600", "transition" to "transform .15s, opacity .15s")
+    props(".primary-action:hover", "transform" to "translateY(-1px)", "opacity" to ".9")
+    props(".text-action", "font-weight" to "600", "color" to "var(--fg-soft)", "border-bottom" to "1px solid var(--line-2)")
+    props(".hero-proof", "display" to "grid", "grid-template-columns" to "repeat(2, minmax(0, 1fr))", "gap" to "20px",
+        "max-width" to "430px", "margin-top" to "42px", "padding-top" to "20px", "border-top" to "1px solid var(--line)")
+    props(".hero-proof > div", "display" to "flex", "flex-direction" to "column", "gap" to "1px")
+    props(".hero-proof b", "font-size" to "19px", "font-weight" to "650")
+    props(".hero-proof span", "font-size" to "11px", "color" to "var(--fg-mute)")
+    props(".hero-product", "align-self" to "stretch", "display" to "flex", "flex-direction" to "column", "min-height" to "470px",
+        "padding" to "18px", "overflow" to "hidden", "border" to "1px solid var(--line)", "border-radius" to "8px",
+        "background" to "var(--bg-card)", "box-shadow" to "0 22px 60px rgba(25, 42, 35, .09)")
+    props(".product-caption", "display" to "flex", "justify-content" to "space-between", "gap" to "16px", "padding" to "2px 2px 16px")
+    props(".product-caption > div", "display" to "flex", "flex-direction" to "column")
+    props(".product-caption span", "font-family" to "var(--font-mono)", "font-size" to "9px", "color" to "var(--fg-mute)")
+    props(".product-caption b", "font-size" to "13px", "font-weight" to "600")
+    props(".phone-shot", "position" to "relative", "flex" to "1", "overflow" to "hidden", "border-radius" to "6px",
+        "background" to "#0a2c3c")
+    props(".phone-shot img", "position" to "absolute", "width" to "100%", "height" to "auto", "top" to "0", "left" to "0",
+        "display" to "block")
+    props(".scope-head", "display" to "flex", "flex-direction" to "column", "gap" to "5px", "padding" to "4px 2px 20px")
+    props(".scope-head span", "font-family" to "var(--font-mono)", "font-size" to "9px", "color" to "var(--accent)")
+    props(".scope-head b", "font-size" to "17px", "font-weight" to "650")
+    props(".scope-list", "display" to "flex", "flex" to "1", "flex-direction" to "column", "justify-content" to "center",
+        "border-top" to "1px solid var(--line)")
+    props(".scope-row", "display" to "grid", "grid-template-columns" to "34px 1fr", "gap" to "12px", "padding" to "19px 2px",
+        "border-bottom" to "1px solid var(--line)")
+    props(".scope-row > span", "padding-top" to "3px", "font-family" to "var(--font-mono)", "font-size" to "9px", "color" to "var(--fg-faint)")
+    props(".scope-row b", "font-size" to "15px", "font-weight" to "650")
+    props(".scope-row p", "margin" to "2px 0 0", "font-size" to "12px", "line-height" to "1.5", "color" to "var(--fg-mute)")
+
+    props(".section-head", "display" to "grid", "grid-template-columns" to "42px auto 1fr", "gap" to "14px",
+        "align-items" to "center", "margin-bottom" to "32px")
+    props(".section-head .num", "font-size" to "10px", "color" to "var(--accent)")
+    props(".section-head h2", "font-family" to "var(--font-sans)", "font-size" to "24px", "font-weight" to "650",
+        "letter-spacing" to "0", "text-transform" to "none")
+    props(".section-head .rule", "display" to "block")
+    props(".skills-grid", "grid-template-columns" to "repeat(3, 1fr)", "gap" to "12px")
+    props(".skill-group", "padding" to "20px", "border" to "1px solid var(--line)", "border-radius" to "7px", "background" to "var(--bg-card)")
+    props(".skill-group h3", "font-size" to "11px", "color" to "var(--accent)")
+    props(".skill-list li", "padding" to "9px 0", "font-size" to "14px")
+    props(".projects", "gap" to "10px", "border-top" to "0")
+    props(".project", "border" to "1px solid var(--line)", "border-radius" to "7px", "background" to "var(--bg-card)")
+    props(".p-head", "padding" to "18px 20px", "grid-template-columns" to "42px 1fr 28px")
+    props(".p-title", "font-size" to "20px", "font-weight" to "650")
+    props(".p-body-inner", "padding" to "0 20px 22px 62px", "display" to "grid", "grid-template-columns" to "1fr", "gap" to "18px")
+    props(".p-desc", "max-width" to "68ch", "font-size" to "15px")
+    props(".p-mod", "border-radius" to "5px")
+    props(".contrib-card, .contact-block", "border-radius" to "7px", "background" to "var(--bg-card)")
+    props(".contact-tabbar", "background" to "var(--bg-soft)", "color" to "var(--fg-soft)")
+    props("footer", "padding" to "28px 0 40px")
+    props(".twk-root", "display" to "none")
+
+    style(":root") { cssMedia("(max-width: 720px)", "--gutter" to "20px") }
+    style(".nav") { cssMedia("(max-width: 720px)", "display" to "none") }
+    style("section") { cssMedia("(max-width: 720px)", "padding" to "58px 0") }
+    style(".hero") { cssMedia("(max-width: 720px)", "padding" to "42px 0 58px", "grid-template-columns" to "1fr", "gap" to "42px") }
+    style(".hero h1") { cssMedia("(max-width: 720px)", "font-size" to "48px", "margin-bottom" to "18px") }
+    style(".hero-lead") { cssMedia("(max-width: 720px)", "font-size" to "26px") }
+    style(".hero-about") { cssMedia("(max-width: 720px)", "font-size" to "15px") }
+    style(".hero-product") { cssMedia("(max-width: 720px)", "min-height" to "460px", "padding" to "14px") }
+    style(".skills-grid") { cssMedia("(max-width: 720px)", "grid-template-columns" to "1fr") }
+    style(".section-head") { cssMedia("(max-width: 720px)", "grid-template-columns" to "32px auto 1fr") }
+    style(".p-head") { cssMedia("(max-width: 720px)", "padding" to "16px", "grid-template-columns" to "32px 1fr 24px") }
+    style(".p-body-inner") { cssMedia("(max-width: 720px)", "padding" to "0 16px 20px") }
+}
+
+private fun InitSilkContext.caseStudyStyles() {
+    props(".section-intro", "display" to "grid", "grid-template-columns" to "170px minmax(0, 1fr)", "gap" to "12px 36px",
+        "align-items" to "start", "margin-bottom" to "44px")
+    props(".section-intro > span", "padding-top" to "8px", "font-family" to "var(--font-mono)", "font-size" to "10px",
+        "font-weight" to "600", "color" to "var(--accent)", "letter-spacing" to ".08em")
+    props(".section-intro h2", "max-width" to "760px", "margin" to "0", "font-size" to "clamp(30px, 4vw, 48px)",
+        "line-height" to "1.22", "font-weight" to "680", "letter-spacing" to "0")
+    props(".section-intro > p", "grid-column" to "2", "max-width" to "680px", "margin" to "6px 0 0", "font-size" to "16px", "color" to "var(--fg-soft)")
+    props(".section-intro.compact h2", "font-size" to "clamp(28px, 3.4vw, 40px)")
+
+    props(".impact-metrics", "display" to "grid", "grid-template-columns" to "repeat(3, 1fr)", "margin-bottom" to "28px",
+        "border-top" to "1px solid var(--line)", "border-bottom" to "1px solid var(--line)")
+    props(".impact-metric", "padding" to "28px 28px 28px 0", "border-right" to "1px solid var(--line)")
+    props(".impact-metric + .impact-metric", "padding-left" to "28px")
+    props(".impact-metric:last-child", "border-right" to "0")
+    props(".impact-metric > b", "display" to "block", "margin-bottom" to "8px", "font-size" to "clamp(38px, 5vw, 58px)",
+        "line-height" to "1", "font-weight" to "720", "color" to "var(--accent)")
+    props(".impact-metric h3", "margin" to "0 0 8px", "font-size" to "16px")
+    props(".impact-metric p", "margin" to "0", "font-size" to "13px", "color" to "var(--fg-mute)")
+
+    props(".case-study", "display" to "grid", "grid-template-columns" to "1.08fr .72fr", "min-height" to "520px",
+        "overflow" to "hidden", "border" to "1px solid var(--line)", "border-radius" to "8px", "background" to "var(--bg-card)")
+    props(".case-copy", "display" to "flex", "flex-direction" to "column", "justify-content" to "center", "padding" to "48px")
+    props(".case-label", "margin-bottom" to "20px", "font-family" to "var(--font-mono)", "font-size" to "10px", "color" to "var(--accent-2)")
+    props(".case-copy h3", "max-width" to "15ch", "margin" to "0 0 22px", "font-size" to "clamp(28px, 3.5vw, 42px)", "line-height" to "1.22")
+    props(".case-copy p", "max-width" to "58ch", "margin" to "0", "font-size" to "15px", "color" to "var(--fg-soft)")
+    props(".case-tags", "display" to "flex", "flex-wrap" to "wrap", "gap" to "7px", "margin-top" to "28px")
+    props(".case-tags span, .stack-cloud span", "padding" to "5px 8px", "border" to "1px solid var(--line)", "border-radius" to "4px",
+        "font-family" to "var(--font-mono)", "font-size" to "10px", "color" to "var(--fg-mute)")
+    props(".case-visual", "position" to "relative", "min-height" to "520px", "overflow" to "hidden", "background" to "#082b3c")
+    props(".case-visual img", "position" to "absolute", "top" to "0", "left" to "0", "width" to "100%", "height" to "auto")
+
+    props(".engineering-list", "border-top" to "1px solid var(--line)")
+    props(".engineering-item", "display" to "grid", "grid-template-columns" to "56px minmax(0, 1fr) 220px", "gap" to "24px",
+        "align-items" to "start", "width" to "100%", "padding" to "26px 0", "border" to "0", "border-bottom" to "1px solid var(--line)",
+        "border-radius" to "0", "background" to "transparent", "color" to "var(--fg)", "font-family" to "var(--font-sans)",
+        "text-align" to "left", "cursor" to "pointer", "appearance" to "none", "transition" to "background-color 160ms ease")
+    props(".engineering-item:hover", "background" to "color-mix(in oklab, var(--fg) 2.5%, transparent)")
+    props(".engineering-item:focus-visible", "outline" to "2px solid var(--accent)", "outline-offset" to "3px")
+    props(".eng-index", "font-family" to "var(--font-mono)", "font-size" to "10px", "color" to "var(--accent)")
+    props(".engineering-item h3", "margin" to "0 0 7px", "font-size" to "18px")
+    props(".engineering-item p", "max-width" to "66ch", "margin" to "0", "color" to "var(--fg-soft)")
+    props(".eng-meta", "padding-top" to "3px", "font-family" to "var(--font-mono)", "font-size" to "10px", "color" to "var(--fg-mute)")
+    props(".eng-side", "display" to "grid", "grid-template-columns" to "minmax(0, 1fr) 24px", "align-items" to "center", "gap" to "14px", "min-height" to "24px")
+    props(".eng-toggle", "display" to "inline-flex", "width" to "24px", "height" to "24px", "flex" to "0 0 24px", "align-items" to "center",
+        "justify-content" to "center", "padding" to "0", "border" to "1px solid var(--line-2)", "border-radius" to "50%", "font-family" to "var(--font-sans)",
+        "font-size" to "16px", "font-weight" to "400", "line-height" to "1", "transform-origin" to "center", "transition" to "transform 200ms ease, border-color 160ms ease")
+    props(".engineering-item[data-open=\"true\"] .eng-toggle", "transform" to "rotate(180deg)", "border-color" to "var(--accent)")
+    props(".engineering-item[data-open=\"true\"] h3", "color" to "var(--accent)")
+    props(".eng-detail", "display" to "grid", "grid-template-rows" to "0fr", "grid-column" to "2 / 4", "margin-top" to "0", "padding-top" to "0",
+        "border-top" to "1px solid transparent", "opacity" to "0", "transform" to "translateY(-4px)",
+        "transition" to "grid-template-rows 220ms ease, opacity 180ms ease, transform 220ms ease, margin-top 220ms ease, padding-top 220ms ease, border-color 220ms ease")
+    props(".engineering-item[data-open=\"true\"] .eng-detail", "grid-template-rows" to "1fr", "margin-top" to "2px", "padding-top" to "18px",
+        "border-top-color" to "var(--line)", "opacity" to "1", "transform" to "translateY(0)")
+    props(".eng-detail p", "min-height" to "0", "max-width" to "72ch", "overflow" to "hidden", "margin" to "0", "font-size" to "14px", "line-height" to "1.8", "color" to "var(--fg-soft)")
+    style(".engineering-item, .eng-toggle, .eng-detail") { cssMedia("(prefers-reduced-motion: reduce)", "transition" to "none") }
+
+    props(".work-grid", "display" to "grid", "grid-template-columns" to "repeat(3, 1fr)", "gap" to "12px")
+    props(".work-card", "display" to "flex", "min-height" to "300px", "flex-direction" to "column", "padding" to "26px",
+        "border" to "1px solid var(--line)", "border-radius" to "7px", "background" to "var(--bg-card)", "transition" to "border-color .18s, transform .18s")
+    props(".work-card:first-child", "grid-column" to "auto", "min-height" to "300px", "background" to "var(--bg-card)")
+    props(".work-card:hover", "border-color" to "var(--accent)", "transform" to "translateY(-2px)")
+    props(".work-top, .work-bottom", "display" to "flex", "justify-content" to "space-between", "gap" to "20px",
+        "font-family" to "var(--font-mono)", "font-size" to "10px", "color" to "var(--fg-mute)")
+    props(".work-card h3", "margin" to "auto 0 14px", "font-size" to "clamp(28px, 4vw, 46px)")
+    props(".work-card h3", "font-size" to "28px")
+    props(".work-card p", "max-width" to "70ch", "margin" to "0 0 28px", "color" to "var(--fg-soft)")
+    props(".work-bottom", "margin-top" to "auto")
+    props(".work-bottom b", "color" to "var(--accent)")
+
+    props(".experience-grid", "display" to "grid", "grid-template-columns" to "1.1fr .9fr", "gap" to "72px")
+    props(".timeline", "border-top" to "1px solid var(--line)")
+    props(".timeline-row", "display" to "grid", "grid-template-columns" to "130px 1fr", "gap" to "20px", "padding" to "19px 0", "border-bottom" to "1px solid var(--line)")
+    props(".timeline-row > span", "font-family" to "var(--font-mono)", "font-size" to "10px", "color" to "var(--fg-mute)")
+    props(".timeline-row > div", "display" to "flex", "flex-direction" to "column")
+    props(".timeline-row b", "font-size" to "15px")
+    props(".timeline-row div span", "font-size" to "12px", "color" to "var(--fg-mute)")
+    props(".profile-notes", "padding" to "28px", "border-left" to "3px solid var(--accent)", "background" to "var(--bg-soft)")
+    props(".profile-notes h3", "margin" to "6px 0 18px", "font-size" to "20px")
+    props(".profile-notes p", "margin" to "0", "color" to "var(--fg-soft)")
+    props(".oss-kicker", "font-family" to "var(--font-mono)", "font-size" to "9px", "color" to "var(--accent)", "letter-spacing" to ".08em")
+    props(".oss-list", "border-top" to "1px solid var(--line)")
+    props(".oss-entry", "display" to "grid", "grid-template-columns" to "minmax(0, 1fr) auto", "gap" to "14px", "align-items" to "center",
+        "padding" to "14px 0", "border-bottom" to "1px solid var(--line)")
+    props(".oss-entry > div", "display" to "flex", "flex-direction" to "column", "gap" to "2px", "min-width" to "0")
+    props(".oss-entry b", "font-size" to "13px", "font-weight" to "650")
+    props(".oss-entry div span", "font-size" to "11px", "color" to "var(--fg-mute)")
+    props(".oss-pr", "font-family" to "var(--font-mono)", "font-size" to "9px", "color" to "var(--accent)", "white-space" to "nowrap")
+    props(".profile-notes .background-note", "margin-top" to "18px", "padding-top" to "18px", "border-top" to "1px solid var(--line)",
+        "font-size" to "12px", "color" to "var(--fg-mute)")
+    props(".stack-cloud", "display" to "flex", "flex-wrap" to "wrap", "gap" to "7px", "margin-top" to "24px")
+
+    props(".contact-new", "padding" to "100px 0")
+    props(".contact-label", "font-family" to "var(--font-mono)", "font-size" to "10px", "color" to "var(--accent)")
+    props(".contact-new h2", "max-width" to "780px", "margin" to "22px 0 18px", "font-size" to "clamp(36px, 6vw, 64px)",
+        "line-height" to "1.16", "font-weight" to "680")
+    props(".contact-new > p", "margin" to "0", "font-size" to "16px", "color" to "var(--fg-soft)")
+    props(".contact-links", "display" to "flex", "flex-wrap" to "wrap", "gap" to "10px", "margin-top" to "38px")
+    props(".contact-links a", "padding" to "10px 14px", "border" to "1px solid var(--line-2)", "border-radius" to "5px", "font-weight" to "600")
+    props(".contact-links a:first-child", "background" to "var(--accent)", "border-color" to "var(--accent)", "color" to "#fff")
+
+    style(".section-intro") { cssMedia("(max-width: 720px)", "grid-template-columns" to "1fr", "gap" to "10px", "margin-bottom" to "32px") }
+    style(".section-intro > p") { cssMedia("(max-width: 720px)", "grid-column" to "1") }
+    style(".impact-metrics") { cssMedia("(max-width: 720px)", "grid-template-columns" to "1fr") }
+    style(".impact-metric") { cssMedia("(max-width: 720px)", "padding" to "22px 0", "border-right" to "0", "border-bottom" to "1px solid var(--line)") }
+    style(".impact-metric + .impact-metric") { cssMedia("(max-width: 720px)", "padding-left" to "0") }
+    style(".case-study") { cssMedia("(max-width: 720px)", "grid-template-columns" to "1fr", "min-height" to "0") }
+    style(".case-copy") { cssMedia("(max-width: 720px)", "padding" to "28px 22px") }
+    style(".case-visual") { cssMedia("(max-width: 720px)", "min-height" to "420px") }
+    style(".engineering-item") { cssMedia("(max-width: 720px)", "grid-template-columns" to "32px 1fr", "gap" to "12px") }
+    style(".eng-side") { cssMedia("(max-width: 720px)", "grid-column" to "2") }
+    style(".eng-detail") { cssMedia("(max-width: 720px)", "grid-column" to "2") }
+    style(".work-grid") { cssMedia("(max-width: 720px)", "grid-template-columns" to "1fr") }
+    style(".work-card:first-child") { cssMedia("(max-width: 720px)", "grid-column" to "auto") }
+    style(".work-card") { cssMedia("(max-width: 720px)", "min-height" to "280px", "padding" to "22px") }
+    style(".experience-grid") { cssMedia("(max-width: 720px)", "grid-template-columns" to "1fr", "gap" to "36px") }
+    style(".timeline-row") { cssMedia("(max-width: 720px)", "grid-template-columns" to "100px 1fr") }
 }
 
 // ---------- helpers ----------
@@ -694,43 +927,6 @@ private fun InitSilkContext.contributions() {
         "margin-top" to "4px")
 }
 
-// ---------- writing (home post list) ----------
-
-private fun InitSilkContext.writing() {
-    props(".writing-list", "display" to "flex", "flex-direction" to "column")
-    style(".post") {
-        css(
-            "display" to "grid",
-            "grid-template-columns" to "110px 1fr auto",
-            "gap" to "18px",
-            "padding" to "16px 4px",
-            "border-bottom" to "1px solid var(--line)",
-            "align-items" to "baseline",
-            "transition" to "transform .22s cubic-bezier(.2,.7,.2,1)",
-            "cursor" to "pointer")
-        cssAt(":last-child", "border-bottom" to "none")
-        cssAt(":hover", "transform" to "translateX(8px)")
-        cssMedia("(max-width: 640px)", "grid-template-columns" to "90px 1fr")
-    }
-    props(".post-date",
-        "font-family" to "var(--font-mono)",
-        "font-size" to "11.5px",
-        "color" to "var(--fg-mute)",
-        "letter-spacing" to "0.02em")
-    props(".post-title",
-        "color" to "var(--fg)",
-        "font-size" to "15.5px",
-        "font-weight" to "500")
-    props(".post:hover .post-title", "color" to "var(--fg)")
-    style(".post-meta") {
-        css(
-            "font-family" to "var(--font-mono)",
-            "font-size" to "11px",
-            "color" to "var(--fg-faint)")
-        cssMedia("(max-width: 640px)", "grid-column" to "2", "margin-top" to "2px")
-    }
-}
-
 // ---------- contact ----------
 
 private fun InitSilkContext.contact() {
@@ -909,433 +1105,6 @@ private fun InitSilkContext.responsiveSmallMobile() {
     style(".contact-body") { cssMedia(q, "font-size" to "11.5px") }
     style(".contrib-graph") { cssMedia(q, "grid-template-columns" to "repeat(53, 8px)") }
     style(".contrib-week") { cssMedia(q, "grid-template-rows" to "repeat(7, 8px)") }
-}
-
-// ---------- blog header / search / list / sidebar / pager ----------
-
-private fun InitSilkContext.blogHeaderAndList() {
-    props(".blog-head",
-        "padding" to "56px 0 32px",
-        "border-bottom" to "1px solid var(--line)",
-        "margin-bottom" to "36px")
-    props(".blog-head .meta",
-        "font-family" to "var(--font-mono)",
-        "font-size" to "12px",
-        "color" to "var(--fg-mute)",
-        "margin-bottom" to "14px",
-        "display" to "flex",
-        "gap" to "14px",
-        "flex-wrap" to "wrap")
-    props(".blog-head .meta .arrow", "color" to "var(--accent)")
-    props(".blog-head h1",
-        "margin" to "0 0 8px",
-        "font-size" to "clamp(34px, 6vw, 54px)",
-        "line-height" to "1",
-        "letter-spacing" to "-0.03em",
-        "font-weight" to "700")
-    props(".blog-head .stats",
-        "margin-top" to "22px",
-        "display" to "flex",
-        "gap" to "28px",
-        "font-family" to "var(--font-mono)",
-        "font-size" to "12px",
-        "color" to "var(--fg-mute)",
-        "flex-wrap" to "wrap")
-    props(".blog-head .stats b", "color" to "var(--fg)", "font-weight" to "600")
-
-    props(".toolbar", "display" to "block", "margin-bottom" to "18px")
-    style(".search") {
-        css(
-            "display" to "flex",
-            "align-items" to "center",
-            "gap" to "8px",
-            "border" to "1px solid var(--line)",
-            "background" to "var(--bg-card)",
-            "border-radius" to "6px",
-            "padding" to "8px 12px",
-            "font-family" to "var(--font-mono)",
-            "font-size" to "13px",
-            "transition" to "border-color .15s")
-        cssAt(":focus-within", "border-color" to "var(--line-2)")
-    }
-    props(".search .pl", "color" to "var(--accent)", "user-select" to "none")
-    props(".search input",
-        "flex" to "1",
-        "background" to "transparent",
-        "border" to "none",
-        "outline" to "none",
-        "color" to "var(--fg)",
-        "font" to "inherit")
-    props(".search input::placeholder", "color" to "var(--fg-faint)")
-    props(".search kbd",
-        "font-family" to "var(--font-mono)",
-        "font-size" to "10.5px",
-        "color" to "var(--fg-mute)",
-        "border" to "1px solid var(--line)",
-        "border-radius" to "3px",
-        "padding" to "1px 5px",
-        "background" to "var(--bg-soft)")
-
-    props(".year-group", "margin-bottom" to "30px")
-    props(".year-label",
-        "display" to "flex",
-        "align-items" to "baseline",
-        "gap" to "14px",
-        "font-family" to "var(--font-mono)",
-        "font-size" to "12px",
-        "color" to "var(--fg-faint)",
-        "margin-bottom" to "8px",
-        "letter-spacing" to "0.04em")
-    props(".year-label b",
-        "color" to "var(--fg)",
-        "font-size" to "13px",
-        "font-weight" to "600",
-        "letter-spacing" to "0")
-    props(".year-label .rule",
-        "flex" to "1",
-        "height" to "1px",
-        "background" to "linear-gradient(to right, var(--line), transparent)")
-
-    style(".blog-post") {
-        css(
-            "display" to "grid",
-            "grid-template-columns" to "96px 1fr auto",
-            "gap" to "18px",
-            "padding" to "14px 4px",
-            "border-bottom" to "1px solid var(--line)",
-            "align-items" to "baseline",
-            "transition" to "transform .22s cubic-bezier(.2,.7,.2,1)",
-            "cursor" to "pointer")
-        cssAt(":hover", "transform" to "translateX(8px)")
-        cssMedia("(max-width: 640px)", "grid-template-columns" to "90px 1fr")
-    }
-    props(".blog-post .post-date",
-        "font-family" to "var(--font-mono)",
-        "font-size" to "11.5px",
-        "color" to "var(--fg-mute)",
-        "letter-spacing" to "0.02em")
-    props(".blog-post .post-body", "min-width" to "0")
-    props(".blog-post .post-title",
-        "color" to "var(--fg)",
-        "font-size" to "15.5px",
-        "font-weight" to "500",
-        "margin" to "0 0 4px",
-        "line-height" to "1.4")
-    props(".blog-post:hover .post-title", "color" to "var(--accent)")
-    props(".blog-post .post-excerpt",
-        "color" to "var(--fg-mute)",
-        "font-size" to "13px",
-        "line-height" to "1.55",
-        "margin" to "0",
-        "overflow" to "hidden",
-        "text-overflow" to "ellipsis",
-        "display" to "-webkit-box",
-        "-webkit-line-clamp" to "2",
-        "-webkit-box-orient" to "vertical")
-    style(".blog-post .post-meta") {
-        css(
-            "font-family" to "var(--font-mono)",
-            "font-size" to "11px",
-            "color" to "var(--fg-faint)",
-            "white-space" to "nowrap")
-        cssMedia("(max-width: 640px)", "grid-column" to "2", "margin-top" to "4px")
-    }
-    props(".blog-post .post-meta .cat",
-        "color" to "var(--fg-soft)",
-        "border-bottom" to "1px dashed var(--line-2)",
-        "padding-bottom" to "1px")
-
-    props(".empty",
-        "padding" to "40px 0",
-        "text-align" to "center",
-        "font-family" to "var(--font-mono)",
-        "font-size" to "13px",
-        "color" to "var(--fg-mute)")
-    props(".empty .pl", "color" to "var(--accent)")
-
-    style(".blog-layout") {
-        css(
-            "display" to "grid",
-            "grid-template-columns" to "1fr 220px",
-            "gap" to "40px",
-            "padding" to "0 0 32px")
-        cssMedia("(max-width: 860px)", "grid-template-columns" to "1fr", "gap" to "24px")
-    }
-    style(".blog-layout .side") {
-        cssMedia("(max-width: 860px)", "order" to "-1")
-    }
-
-    props(".side-block",
-        "border" to "1px solid var(--line)",
-        "border-radius" to "6px",
-        "background" to "var(--bg-card)",
-        "padding" to "14px 16px",
-        "margin-bottom" to "14px")
-    style(".side-block h3") {
-        css(
-            "margin" to "0 0 12px",
-            "font-family" to "var(--font-mono)",
-            "font-size" to "11px",
-            "text-transform" to "uppercase",
-            "letter-spacing" to "0.14em",
-            "color" to "var(--fg-mute)",
-            "font-weight" to "500",
-            "display" to "flex",
-            "align-items" to "center",
-            "gap" to "6px")
-        cssAt("::before", "content" to "\"▸\"", "color" to "var(--accent)", "font-size" to "10px")
-    }
-    props(".cats",
-        "list-style" to "none",
-        "padding" to "0",
-        "margin" to "0",
-        "display" to "flex",
-        "flex-direction" to "column",
-        "gap" to "2px")
-    style(".cats li a") {
-        css(
-            "display" to "flex",
-            "justify-content" to "space-between",
-            "align-items" to "baseline",
-            "gap" to "8px",
-            "padding" to "4px 6px",
-            "font-family" to "var(--font-mono)",
-            "font-size" to "12.5px",
-            "color" to "var(--fg-soft)",
-            "border-radius" to "3px",
-            "transition" to "background .12s, color .12s")
-        cssAt(":hover", "background" to "var(--bg-soft)", "color" to "var(--fg)")
-    }
-    props(".cats li a > span:first-child",
-        "min-width" to "0",
-        "overflow" to "hidden",
-        "text-overflow" to "ellipsis",
-        "white-space" to "nowrap")
-    style(".cats li.sub a") {
-        css(
-            "padding-left" to "22px",
-            "color" to "var(--fg-mute)",
-            "font-size" to "11.5px",
-            "position" to "relative")
-        cssAt("::before",
-            "content" to "\"└\"",
-            "position" to "absolute",
-            "left" to "8px",
-            "color" to "var(--fg-faint)")
-    }
-    props(".cats .ct", "color" to "var(--fg-faint)", "font-size" to "10.5px")
-
-    props(".tags", "display" to "flex", "flex-wrap" to "wrap", "gap" to "5px")
-    style(".tag") {
-        css(
-            "font-family" to "var(--font-mono)",
-            "font-size" to "10.5px",
-            "padding" to "3px 7px",
-            "border-radius" to "3px",
-            "background" to "var(--bg-soft)",
-            "color" to "var(--fg-soft)",
-            "border" to "1px solid var(--line)",
-            "cursor" to "pointer",
-            "transition" to "border-color .12s, color .12s")
-        cssAt(":hover", "color" to "var(--fg)", "border-color" to "var(--line-2)")
-    }
-
-    props(".pager",
-        "display" to "flex",
-        "gap" to "6px",
-        "justify-content" to "center",
-        "margin" to "18px 0 0",
-        "font-family" to "var(--font-mono)",
-        "font-size" to "12.5px")
-    props(".pager a, .pager span",
-        "padding" to "6px 10px",
-        "border" to "1px solid var(--line)",
-        "border-radius" to "4px",
-        "color" to "var(--fg-soft)",
-        "background" to "var(--bg-card)",
-        "cursor" to "pointer")
-    props(".pager a:hover", "color" to "var(--fg)", "border-color" to "var(--line-2)")
-    props(".pager .cur",
-        "color" to "var(--fg)",
-        "border-color" to "color-mix(in oklab, var(--accent) 35%, var(--line))",
-        "background" to "color-mix(in oklab, var(--accent) 8%, var(--bg-card))")
-    props(".pager .gap",
-        "border" to "none", "background" to "transparent", "color" to "var(--fg-faint)")
-}
-
-// ---------- blog article ----------
-
-private fun InitSilkContext.blogArticle() {
-    props(".article-head",
-        "padding" to "64px 0 28px",
-        "border-bottom" to "1px solid var(--line)",
-        "margin-bottom" to "32px")
-    props(".a-meta",
-        "font-family" to "var(--font-mono)",
-        "font-size" to "12px",
-        "color" to "var(--fg-mute)",
-        "display" to "flex",
-        "gap" to "14px",
-        "margin-bottom" to "16px",
-        "flex-wrap" to "wrap")
-    props(".a-meta .arrow", "color" to "var(--accent)")
-    props(".a-meta .cat", "color" to "var(--fg-soft)")
-    props(".a-meta .read", "color" to "var(--fg-faint)")
-    props(".a-title",
-        "margin" to "0 0 14px",
-        "font-size" to "clamp(28px, 4.5vw, 40px)",
-        "line-height" to "1.2",
-        "letter-spacing" to "-0.02em",
-        "font-weight" to "700")
-    props(".a-tags",
-        "display" to "flex",
-        "gap" to "6px",
-        "flex-wrap" to "wrap",
-        "margin-top" to "8px")
-    props(".a-tag",
-        "font-family" to "var(--font-mono)",
-        "font-size" to "11px",
-        "padding" to "3px 8px",
-        "border-radius" to "3px",
-        "background" to "var(--bg-soft)",
-        "color" to "var(--fg-soft)",
-        "border" to "1px solid var(--line)")
-
-    props(".article", "padding-bottom" to "48px")
-    props(".article p", "margin" to "0 0 18px", "color" to "var(--fg-soft)")
-    style(".article h2") {
-        css(
-            "margin" to "42px 0 14px",
-            "font-size" to "22px",
-            "letter-spacing" to "-0.01em",
-            "font-family" to "var(--font-mono)",
-            "font-weight" to "600")
-        cssAt("::before", "content" to "\"## \"", "color" to "var(--accent)")
-    }
-    style(".article h3") {
-        css(
-            "margin" to "28px 0 10px",
-            "font-size" to "17px",
-            "font-weight" to "600",
-            "font-family" to "var(--font-mono)")
-        cssAt("::before", "content" to "\"### \"", "color" to "var(--accent-2)")
-    }
-    props(".article ul", "margin" to "0 0 18px", "padding-left" to "22px")
-    props(".article li", "color" to "var(--fg-soft)", "margin-bottom" to "6px")
-    props(".article li::marker", "color" to "var(--accent)")
-    props(".article code",
-        "font-family" to "var(--font-mono)",
-        "font-size" to "0.86em",
-        "background" to "var(--bg-soft)",
-        "border" to "1px solid var(--line)",
-        "border-radius" to "3px",
-        "padding" to "1px 6px",
-        "color" to "var(--fg)")
-    props(".article pre",
-        "margin" to "18px 0",
-        "background" to "var(--bg-card)",
-        "border" to "1px solid var(--line)",
-        "border-radius" to "6px",
-        "overflow" to "auto",
-        "font-family" to "var(--font-mono)",
-        "font-size" to "13px",
-        "line-height" to "1.7",
-        "color" to "var(--fg)")
-    props(".article pre code",
-        "display" to "block",
-        "background" to "transparent",
-        "border" to "none",
-        "padding" to "14px 16px",
-        "color" to "var(--fg)",
-        "font-size" to "13px")
-    props(".article blockquote",
-        "margin" to "18px 0",
-        "padding" to "12px 16px",
-        "border-left" to "2px solid var(--accent)",
-        "background" to "var(--bg-soft)",
-        "color" to "var(--fg-soft)",
-        "border-radius" to "0 6px 6px 0")
-    props(".article blockquote p:last-child", "margin-bottom" to "0")
-    props(".article img",
-        "max-width" to "100%",
-        "border-radius" to "6px",
-        "margin" to "18px 0")
-    style(".article a") {
-        css("color" to "var(--accent)", "border-bottom" to "1px dashed var(--line-2)")
-        cssAt(":hover", "color" to "var(--fg)", "border-color" to "var(--fg-soft)")
-    }
-
-    props(".toc",
-        "border" to "1px solid var(--line)",
-        "background" to "var(--bg-card)",
-        "border-radius" to "6px",
-        "padding" to "14px 18px",
-        "margin" to "0 0 30px",
-        "font-size" to "13.5px")
-    style(".toc h4") {
-        css(
-            "margin" to "0 0 8px",
-            "font-family" to "var(--font-mono)",
-            "font-size" to "11px",
-            "text-transform" to "uppercase",
-            "letter-spacing" to "0.14em",
-            "color" to "var(--fg-mute)",
-            "font-weight" to "500")
-        cssAt("::before", "content" to "\"▸ \"", "color" to "var(--accent)")
-    }
-    props(".toc ol", "margin" to "0", "padding-left" to "22px", "color" to "var(--fg-soft)")
-    props(".toc li", "margin-bottom" to "4px")
-    props(".toc a:hover", "color" to "var(--accent)")
-
-    style(".pager-bottom") {
-        css(
-            "display" to "grid",
-            "grid-template-columns" to "1fr 1fr",
-            "gap" to "12px",
-            "margin" to "32px 0 16px")
-        cssMedia("(max-width: 560px)", "grid-template-columns" to "1fr")
-    }
-    style(".pg") {
-        css(
-            "border" to "1px solid var(--line)",
-            "border-radius" to "6px",
-            "padding" to "14px 16px",
-            "background" to "var(--bg-card)",
-            "color" to "var(--fg-soft)",
-            "transition" to "border-color .15s, color .15s")
-        cssAt(":hover", "border-color" to "var(--line-2)", "color" to "var(--fg)")
-    }
-    props(".pg .k",
-        "font-family" to "var(--font-mono)",
-        "font-size" to "10.5px",
-        "text-transform" to "uppercase",
-        "letter-spacing" to "0.12em",
-        "color" to "var(--fg-faint)",
-        "margin-bottom" to "6px")
-    props(".pg .t", "font-size" to "14px", "font-weight" to "500", "color" to "var(--fg)")
-    style(".pg.next") {
-        css("text-align" to "right")
-        cssMedia("(max-width: 560px)", "text-align" to "left")
-    }
-    style(".pg.next .k") {
-        cssAt("::after", "content" to "\" →\"", "color" to "var(--accent)")
-    }
-    style(".pg.prev .k") {
-        cssAt("::before", "content" to "\"← \"", "color" to "var(--accent)")
-    }
-
-    style(".back") {
-        css(
-            "display" to "inline-flex",
-            "align-items" to "center",
-            "gap" to "6px",
-            "font-family" to "var(--font-mono)",
-            "font-size" to "12px",
-            "color" to "var(--fg-soft)",
-            "margin-bottom" to "16px")
-        cssAt(":hover", "color" to "var(--accent)")
-        cssAt("::before", "content" to "\"$ cd ..\"", "color" to "var(--fg-mute)", "margin-right" to "4px")
-    }
 }
 
 // ---------- tweaks panel ----------

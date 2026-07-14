@@ -27,7 +27,7 @@ fun IndexContributions() {
     val heatmap = remember { buildHeatmap() }
 
     Section(attrs = { id("contributions") }) {
-        SectionHead("03", "contributions")
+        SectionHead("04", "contributions")
 
         Div(attrs = { classes("contrib-card", "reveal") }) {
             Div(attrs = { classes("contrib-head") }) {
