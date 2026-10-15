@@ -2,12 +2,7 @@ package dev.kongjak.kongjak.pages
 
 import androidx.compose.runtime.Composable
 import dev.kongjak.kongjak.components.layouts.PageLayoutData
-import dev.kongjak.kongjak.components.sections.index.IndexContributions
-import dev.kongjak.kongjak.components.sections.index.IndexMain
-import dev.kongjak.kongjak.components.sections.index.IndexEngineering
-import dev.kongjak.kongjak.components.sections.index.IndexExperience
-import dev.kongjak.kongjak.components.sections.index.IndexSelectedWork
-import dev.kongjak.kongjak.components.sections.index.IndexContact
+import dev.kongjak.kongjak.components.sections.index.*
 import com.varabyte.kobweb.core.Page
 import com.varabyte.kobweb.core.data.add
 import com.varabyte.kobweb.core.init.InitRoute
@@ -24,9 +19,8 @@ fun initHomePage(ctx: InitRouteContext) {
 @Composable
 fun HomePage() {
     IndexMain()
-    IndexEngineering()
     IndexSelectedWork()
+    IndexSkills()
     IndexExperience()
-    IndexContributions()
-    IndexContact()
+    IndexBlog()
 }

@@ -1,17 +1,22 @@
 package dev.kongjak.kongjak.components.sections
 
 import androidx.compose.runtime.Composable
-import dev.kongjak.kongjak.generated.gitCommitHash
-import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.toAttrs
-import org.jetbrains.compose.web.dom.Footer
-import org.jetbrains.compose.web.dom.Span
-import org.jetbrains.compose.web.dom.Text
+import dev.kongjak.kongjak.utils.GITHUB_URL
+import dev.kongjak.kongjak.utils.MAIL_ADDRESS
+import org.jetbrains.compose.web.dom.*
 
 @Composable
-fun SiteFooter(modifier: Modifier = Modifier) {
-    Footer(attrs = modifier.toAttrs()) {
-        Span { Text("© 2026 Kongjak") }
-        Span(attrs = { classes("build") }) { Text("build · $gitCommitHash") }
+fun SiteFooter() {
+    Footer(attrs = { classes("site-footer") }) {
+        Div {
+            A(href = MAIL_ADDRESS, attrs = { classes("footer-email") }) { Text("kongjak@kongjak.dev ↗") }
+        }
+        Div(attrs = { classes("footer-bottom") }) {
+            Span { Text("Copyright WooJin Kong") }
+            Div {
+                A(href = GITHUB_URL, attrs = { attr("target", "_blank"); attr("rel", "noopener noreferrer") }) { Text("GitHub ↗") }
+                A(href = "#top") { Text("맨 위로 ↑") }
+            }
+        }
     }
 }

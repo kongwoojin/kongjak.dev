@@ -6,50 +6,31 @@ import androidx.compose.runtime.setValue
 import com.varabyte.kobweb.silk.components.icons.fa.FaMoon
 import com.varabyte.kobweb.silk.components.icons.fa.FaSun
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import org.jetbrains.compose.web.dom.A
-import org.jetbrains.compose.web.dom.B
-import org.jetbrains.compose.web.dom.Button
-import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.Header
-import org.jetbrains.compose.web.dom.Nav
-import org.jetbrains.compose.web.dom.Span
-import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.dom.*
 
 @Composable
 fun NavHeader() {
     var colorMode by ColorMode.currentState
     Header(attrs = { classes("topbar") }) {
         Div(attrs = { classes("topbar-inner") }) {
-            A(href = "#top", attrs = { classes("brand") }) {
-                Span(attrs = { classes("dot"); attr("aria-hidden", "true") }) {}
-                B { Text("kongjak") }
-                Span { Text(".dev") }
+            A(href = "#top", attrs = { classes("brand"); attr("aria-label", "공우진 포트폴리오 처음으로") }) {
+                Text("kongjak")
+                Span { Text(".") }
             }
-            HomeNav()
+            Nav(attrs = { classes("nav"); attr("aria-label", "섹션 이동") }) {
+                A(href = "#projects") { Text("프로젝트") }
+                A(href = "#skills") { Text("기술 스택") }
+                A(href = "#about") { Text("소개") }
+                A(href = "#blog") { Text("블로그") }
+            }
             Button(attrs = {
                 classes("theme-toggle")
-                attr("aria-label", "테마 전환")
+                attr("type", "button")
+                attr("aria-label", if (colorMode.isLight) "어두운 테마로 전환" else "밝은 테마로 전환")
                 onClick { colorMode = colorMode.opposite }
             }) {
-                if (colorMode.isLight) FaSun() else FaMoon()
+                if (colorMode.isLight) FaMoon() else FaSun()
             }
         }
-    }
-}
-
-@Composable
-private fun HashLink(href: String, label: String) {
-    A(href = href) {
-        Span(attrs = { classes("hash") }) { Text("#") }
-        Text(label)
-    }
-}
-
-@Composable
-private fun HomeNav() {
-    Nav(attrs = { classes("nav"); attr("aria-label", "섹션 이동") }) {
-        HashLink("#engineering", "notes")
-        HashLink("#projects", "projects")
-        HashLink("#contact", "contact")
     }
 }

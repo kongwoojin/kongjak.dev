@@ -74,7 +74,7 @@ kobweb {
             head.add {
                 script {
                     unsafe {
-                        +"(function(){var d=document.documentElement;var s=localStorage.getItem('kongjak:colorMode');d.setAttribute('data-theme',s==='LIGHT'?'light':'dark');var t={palette:'android',density:'regular',texture:'none'};try{var r=localStorage.getItem('kongjak:tweaks');if(r){var p=JSON.parse(r);if(typeof p==='object'){if(p.palette)t.palette=p.palette;if(p.density)t.density=p.density;if(p.texture)t.texture=p.texture}}}catch(e){}d.setAttribute('data-palette',t.palette);if(t.density!=='regular')d.setAttribute('data-density',t.density);if(t.texture!=='grid')d.setAttribute('data-texture',t.texture);})()"
+                        +"(function(){var d=document.documentElement;var s=localStorage.getItem('kongjak:colorMode');d.setAttribute('data-theme',s==='DARK'?'dark':'light');var t={palette:'android',density:'regular',texture:'none'};try{var r=localStorage.getItem('kongjak:tweaks');if(r){var p=JSON.parse(r);if(typeof p==='object'){if(p.palette)t.palette=p.palette;if(p.density)t.density=p.density;if(p.texture)t.texture=p.texture}}}catch(e){}d.setAttribute('data-palette',t.palette);if(t.density!=='regular')d.setAttribute('data-density',t.density);if(t.texture!=='grid')d.setAttribute('data-texture',t.texture);})()"
                     }
                 }
                 link {
@@ -94,6 +94,14 @@ kobweb {
                     rel = "stylesheet"
                     href =
                         "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+                }
+                link {
+                    rel = "stylesheet"
+                    href = "https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css"
+                }
+                link {
+                    rel = "stylesheet"
+                    href = "https://cdn.jsdelivr.net/gh/fonts-archive/GmarketSans/subsets/GmarketSans-dynamic-subset.css"
                 }
                 link {
                     rel = "stylesheet"
