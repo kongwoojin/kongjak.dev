@@ -19,7 +19,6 @@ fun IndexMain() {
             Div(attrs = { classes("hero-links") }) {
                 A(href = MAIL_ADDRESS, attrs = { classes("quiet-link") }) { Text("이메일") }
                 A(href = GITHUB_URL, attrs = { classes("quiet-link"); attr("target", "_blank"); attr("rel", "noopener noreferrer") }) { Text("GitHub ↗") }
-                A(href = "/resume.pdf", attrs = { classes("quiet-link"); attr("target", "_blank"); attr("rel", "noopener noreferrer") }) { Text("이력서 ↗") }
             }
         }
     }
