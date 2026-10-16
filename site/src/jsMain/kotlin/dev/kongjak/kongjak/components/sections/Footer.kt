@@ -12,7 +12,7 @@ fun SiteFooter() {
             A(href = MAIL_ADDRESS, attrs = { classes("footer-email") }) { Text("kongjak@kongjak.dev ↗") }
         }
         Div(attrs = { classes("footer-bottom") }) {
-            Span { Text("Copyright WooJin Kong") }
+            Span { Text("© WooJin Kong") }
             Div {
                 A(href = GITHUB_URL, attrs = { attr("target", "_blank"); attr("rel", "noopener noreferrer") }) { Text("GitHub ↗") }
                 A(href = "#top") { Text("맨 위로 ↑") }

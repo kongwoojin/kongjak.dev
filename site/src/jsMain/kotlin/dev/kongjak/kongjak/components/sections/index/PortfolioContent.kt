@@ -5,8 +5,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import dev.kongjak.kongjak.utils.BLOG_URL
 import dev.kongjak.kongjak.utils.GITHUB_URL
+import dev.kongjak.kongjak.utils.BLOG_URL
 import org.jetbrains.compose.web.dom.*
 
 private data class WorkItem(
@@ -37,14 +37,14 @@ private val selectedWork = listOf(
         listOf("Go", "CLI"), "https://github.com/kongwoojin/gobuild"),
 )
 
-private data class BlogPost(
+internal data class BlogPost(
     val title: String,
     val category: String,
     val date: String,
     val href: String,
 )
 
-private val recentBlogPosts = listOf(
+internal val recentBlogPosts = listOf(
     BlogPost("Offline-first: 네트워크 없이도 작동하는 앱 만들기", "개발 · 안드로이드", "2026.10.07", "$BLOG_URL/43"),
     BlogPost("난독화와 R8 Full mode 적용하기", "개발 · 안드로이드", "2026.09.13", "$BLOG_URL/42"),
     BlogPost("[CS 스터디] 7주차 HTTP & DNS", "공부 · CS 스터디", "2026.07.06", "$BLOG_URL/41"),
@@ -208,13 +208,13 @@ fun IndexBlog() {
                         H3 { Text(post.title) }
                         P(attrs = { classes("blog-meta") }) { Text("${post.category}  ·  ${post.date}") }
                     }
-                    Span(attrs = { classes("blog-entry-arrow"); attr("aria-hidden", "true") }) { Text("↗") }
+                    Span(attrs = { classes("blog-entry-arrow"); attr("aria-hidden", "true") }) { Text("→") }
                 }
             }
         }
         Div(attrs = { classes("section-end") }) {
             Span {}
-            A(href = BLOG_URL, attrs = { classes("quiet-link"); attr("target", "_blank"); attr("rel", "noopener noreferrer") }) { Text("블로그에서 더 보기 ↗") }
+            A(href = BLOG_URL, attrs = { classes("quiet-link"); attr("target", "_blank"); attr("rel", "noopener noreferrer") }) { Text("블로그에서 더 보기 →") }
         }
     }
 }
